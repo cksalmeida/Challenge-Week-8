@@ -37,6 +37,13 @@ export default {
         "51px": "3.225rem",
         "37px": "2.346875rem",
       },
+      backgroundImage: {
+        loginBg: "url('../src/assets/loginBg.png')",
+      },
+      fontFamily: {
+        workSans: ["Work Sans"],
+        lato: ["Lato"],
+      },
     },
   },
   plugins: [],
