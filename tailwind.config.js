@@ -37,11 +37,12 @@ export default {
         "51px": "3.225rem",
         "37px": "2.346875rem",
       },
-      borderRadius: {
-        "20px": "20px",
-      },
       backgroundImage: {
         loginBg: "url('../src/assets/loginBg.png')",
+      },
+      fontFamily: {
+        workSans: ["Work Sans"],
+        lato: ["Lato"],
       },
     },
   },
