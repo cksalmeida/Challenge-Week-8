@@ -39,7 +39,6 @@ export default {
       },
       backgroundImage: {
         loginBg: "url('../src/assets/loginBg.png')",
-        heroBg: "url('../src/assets/heroBg.png')",
       },
       fontFamily: {
         workSans: ["Work Sans"],
