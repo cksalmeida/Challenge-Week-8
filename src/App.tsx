@@ -1,5 +1,11 @@
+import Carrossel from './components/Carrossel.tsx'
+
 function App() {
-  return <></>;
+  return <>
+  
+  <Carrossel/>
+
+  </>;
 }
 
 export default App;
