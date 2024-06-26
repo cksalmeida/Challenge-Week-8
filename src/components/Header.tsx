@@ -10,9 +10,9 @@ import userIcon from "../assets/logged_user.svg";
 
 const Header = () => {
   return (
-    <div className="flex flex-col gap-4 items-center bg-black">
+    <div className="flex flex-col md:flex-row gap-4 py-4 px-8 items-center md:justify-between bg-black">
       <img src={compassLogo} alt="compassLogo" className="w-[200px]" />
-      <div className="flex flex-row justify-center items-center font-workSans text-base text-white gap-4">
+      <div className="flex flex-row md:order-2 justify-center items-center font-workSans text-base text-white gap-4">
         <div className="flex flex-row gap-2">
           <button className="py-2 px-4 flex flex-row justify-center items-center gap-2">
             <img src={searchIcon} alt="searchIcon" />
@@ -23,9 +23,11 @@ const Header = () => {
             <p>Minha Lista</p>
           </a>
         </div>
-        <img src={userIcon} alt="userIcon" />
+        <button>
+          <img src={userIcon} alt="userIcon" />
+        </button>
       </div>
-      <nav className="font-workSans text-base text-white flex flex-row flex-wrap justify-center">
+      <nav className="font-workSans text-base text-white md:order-1 flex flex-row flex-wrap justify-center">
         <div className="py-2 px-4">
           <a href="" className="flex gap-2">
             <img src={homeIcon} alt="homeIcon" />
