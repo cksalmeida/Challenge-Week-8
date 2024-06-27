@@ -1,7 +1,11 @@
-import heroBg from "../assets/HeroBg.png";
+import { trending } from "../types/Tmdb";
 import HeroInformation from "./HeroInformation";
 
-const Hero = () => {
+interface Props {
+  trending: trending | null;
+}
+
+const Hero = ({ trending }: Props) => {
   return (
     <section className="relative h-screen overflow-hidden flex items-end md:items-center">
       <div className="bg-top-gradient absolute top-0 left-0 right-0 height-15px z-10"></div>
@@ -10,10 +14,10 @@ const Hero = () => {
       <div
         className="bg-cover bg-no-repeat bg-center absolute top-0 left-0 right-0 bottom-0"
         style={{
-          backgroundImage: `url(${heroBg})`,
+          backgroundImage: `url(https://image.tmdb.org/t/p/original/${trending?.backdrop_path})`,
         }}
       />
-      <HeroInformation />
+      <HeroInformation trending={trending} />
     </section>
   );
 };
