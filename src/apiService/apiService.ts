@@ -3,26 +3,6 @@ import { detail } from "../types/Tmdb";
 
 const token: string = import.meta.env.VITE_TMDB_API_KEY;
 
-const fetchTrending = async () => {
-  try {
-    const response = await axios.get(
-      "https://api.themoviedb.org/3/trending/all/day",
-      {
-        params: {
-          language: "pt-BR",
-        },
-        headers: {
-          accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data.results;
-  } catch (error) {
-    console.error("Error fetching trending:", error);
-  }
-};
-
 const fetchRandomMovieTvDetails = async (
   detail: string
 ): Promise<detail | undefined> => {
@@ -71,6 +51,26 @@ const fetchRandomMovieTvDetails = async (
     }
   } catch (error) {
     console.error("Error fetching random movie or TV details:", error);
+  }
+};
+
+const fetchTrending = async () => {
+  try {
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/trending/all/day",
+      {
+        params: {
+          language: "pt-BR",
+        },
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching trending:", error);
   }
 };
 

@@ -80,6 +80,7 @@ const HeroInformation = ({ detail }: Props) => {
           img={infoVector}
           alt="Info"
           className="bg-none text-white border border-white hover:bg-neutral-200 hover:text-neutral-600 hover:border-none"
+          onClick={() => console.log("Button clicked!")}
         >
           MAIS INFORMAÇÕES
         </ButtonDefault>
