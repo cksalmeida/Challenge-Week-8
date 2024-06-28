@@ -24,11 +24,19 @@ const Header = () => {
         <img src={compassLogo} alt="compassLogo" className="w-[200px]" />
         <div className="flex flex-row md:order-2 justify-center items-center font-workSans text-base text-white gap-4 w-full md:justify-end">
           {showSearchBox ? (
-            <div className="bg-slate-400 px-3 py-4 flex flex-col gap-4">
-              <input type="text" placeholder="Filme, série ou celebridade" />
+            <div className="bg-transparent px-3 py-4 flex flex-col gap-4">
+              <input
+                className="bg-transparent"
+                type="text"
+                placeholder="Filme, série ou celebridade"
+              />
               <div className="flex flex-row gap-3">
                 <button className="h-[43px] p-3 border-solid">
-                  <select name="options" id="options">
+                  <select
+                    className="bg-transparent"
+                    name="options"
+                    id="options"
+                  >
                     <option value="Tudo">Tudo</option>
                     <option value="Filmes">Filmes</option>
                     <option value="Coleções">Coleções</option>
