@@ -48,7 +48,7 @@ const HeroInformation = ({ trending }: Props) => {
   };
 
   return (
-    <div className="font-workSans text-white flex flex-col items-start mx-4 md:mx-0 md:max-w-3xl md:ml-20 mb-6 md:mb-0 gap-8 z-20 relative">
+    <div className="font-workSans text-white flex flex-col items-start mx-4 md:mx-0 md:max-w-3xl md:ml-20 mb-6 md:mb-0 gap-8 z-20 mt-[59.4px] md:mt-0">
       <div className="text-neutral-100 flex flex-col gap-5">
         <h1 className="text-44px font-bold">
           {trending ? (trending.title ? trending.title : trending.name) : null}
