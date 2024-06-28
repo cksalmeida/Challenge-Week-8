@@ -1,4 +1,5 @@
 import axios from "axios";
+import { detail } from "../types/Tmdb";
 
 const token: string = import.meta.env.VITE_TMDB_API_KEY;
 
@@ -22,15 +23,17 @@ const fetchTrending = async () => {
   }
 };
 
-const fetchRandomMovieTvDetails = async (detail: string) => {
+const fetchRandomMovieTvDetails = async (
+  detail: string
+): Promise<detail | undefined> => {
   try {
     let detailResults;
     if (detail === "randomTrending") {
       detailResults = await fetchTrending();
     } else if (detail === "randomMovieTrending") {
-      detailResults = await fetchTrendingMovies();
+      detailResults = await fetchPopularMovies();
     } else if (detail === "randomTvTrending") {
-      detailResults = await fetchTrendingTVShows();
+      detailResults = await fetchPopularTVShows();
     }
     const randomIndex = Math.floor(Math.random() * detailResults.length);
     const randomItem = detailResults[randomIndex];
@@ -63,17 +66,23 @@ const fetchRandomMovieTvDetails = async (detail: string) => {
         }
       );
       return tvResponse.data;
+    } else {
+      return await fetchRandomMovieTvDetails("randomTrending");
     }
   } catch (error) {
     console.error("Error fetching random movie or TV details:", error);
   }
 };
 
-const fetchTrendingMovies = async () => {
+const fetchPopularMovies = async () => {
   try {
     const response = await axios.get(
-      "https://api.themoviedb.org/3/trending/movie/day?language=pt-BR",
+      "https://api.themoviedb.org/3/movie/popular",
       {
+        params: {
+          language: "en-US",
+          page: 1,
+        },
         headers: {
           accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -82,17 +91,18 @@ const fetchTrendingMovies = async () => {
     );
     return response.data.results;
   } catch (error) {
-    console.error("Error fetching trending Movies:", error);
+    console.error("Error fetching Popular Movies:", error);
   }
 };
 
-const fetchTrendingTVShows = async () => {
+const fetchPopularTVShows = async () => {
   try {
     const response = await axios.get(
-      "https://api.themoviedb.org/3/trending/tv/day",
+      "https://api.themoviedb.org/3/tv/popular",
       {
         params: {
           language: "pt-BR",
+          page: 1,
         },
         headers: {
           accept: "application/json",
@@ -102,7 +112,7 @@ const fetchTrendingTVShows = async () => {
     );
     return response.data.results;
   } catch (error) {
-    console.error("Error fetching trending TV shows:", error);
+    console.error("Error fetching Popular TV shows:", error);
   }
 };
 

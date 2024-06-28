@@ -9,7 +9,7 @@ const Movie = () => {
 
   const fetchRandomTrendMovie = async () => {
     const random = await fetchRandomMovieTvDetails("randomMovieTrending");
-    setRandomTrendMovie(random);
+    setRandomTrendMovie(random ? random : null);
   };
 
   useEffect(() => {

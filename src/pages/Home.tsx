@@ -14,7 +14,7 @@ const Home = () => {
 
   const fetchRandomTrend = async () => {
     const random = await fetchRandomMovieTvDetails("randomTrending");
-    setRandomTrend(random);
+    setRandomTrend(random ? random : null);
   };
 
   useEffect(() => {
@@ -32,7 +32,6 @@ const Home = () => {
       <Routes>
         <Route path="/" element={<Hero detail={randomTrend} />} />
         <Route path="series" element={<Tv />} />
-        Movie
         <Route path="filmes" element={<Movie />} />
         <Route path="celebridades" element={<Celebrities />} />
       </Routes>

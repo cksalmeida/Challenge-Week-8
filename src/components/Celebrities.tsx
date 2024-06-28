@@ -5,22 +5,20 @@ import { fetchRandomMovieTvDetails } from "../apiService/apiService";
 import { detail } from "../types/Tmdb";
 
 const Celebrities = () => {
-  const [randomTrendPeople, setRandomTrendPeople] = useState<detail | null>(
-    null
-  );
+  const [randomTrend, setRandomTrend] = useState<detail | null>(null);
 
-  const fetchRandomTrendPeople = async () => {
-    const random = await fetchRandomMovieTvDetails("randomPeopleTrending");
-    console.log("🚀 ~ fetchRandomTrendPeople ~ random:", random);
-    setRandomTrendPeople(random);
+  const fetchRandomTrendMovie = async () => {
+    const random = await fetchRandomMovieTvDetails("randomTrending");
+    setRandomTrend(random ? random : null);
   };
 
   useEffect(() => {
-    fetchRandomTrendPeople();
+    fetchRandomTrendMovie();
   }, []);
+
   return (
     <div>
-      <Hero detail={randomTrendPeople} />
+      <Hero detail={randomTrend} />
       <Footer />
     </div>
   );
