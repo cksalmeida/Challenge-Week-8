@@ -4,7 +4,6 @@
   width: 248px;
   padding: 20px;
   border-radius: 8px;
-  background-color: indianred;
   border: 1px solid #353843;
   box-shadow: 0px 4px 20px 0px #00000066;
   z-index: 1000;
@@ -18,7 +17,6 @@
   width: 20px;
   height: 20px;
   transform: rotate(45deg);
-  background-color: indianred;
   border-left: 1px solid #353843;
   border-top: 1px solid #353843;
 }

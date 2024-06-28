@@ -20,7 +20,7 @@ const Header = () => {
 
   return (
     <div className="relative">
-      <div className="flex flex-col md:flex-row gap-4 py-4 px-8 items-center md:justify-between bg-black">
+      <div className="flex flex-col md:flex-row gap-4 py-4 px-8 items-center md:justify-between">
         <img src={compassLogo} alt="compassLogo" className="w-[200px]" />
         <div className="flex flex-row md:order-2 justify-center items-center font-workSans text-base text-white gap-4 w-full md:justify-end">
           {showSearchBox ? (
