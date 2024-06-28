@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import Footer from "./Footer";
-import { trending } from "../types/Tmdb";
-import { fetchTrendingMovies } from "../apiService/apiService";
+import { detail } from "../types/Tmdb";
+import { fetchRandomMovieTvDetails } from "../apiService/apiService";
+import Hero from "./Hero";
 
 const Movie = () => {
-  const [randomTrendMovie, setRandomTrendMovie] = useState<trending | null>(
-    null
-  );
+  const [randomTrendMovie, setRandomTrendMovie] = useState<detail | null>(null);
 
   const fetchRandomTrendMovie = async () => {
-    const random = await fetchTrendingMovies();
+    const random = await fetchRandomMovieTvDetails("randomMovieTrending");
     setRandomTrendMovie(random);
-    console.log(random);
   };
 
   useEffect(() => {
@@ -20,7 +18,7 @@ const Movie = () => {
 
   return (
     <div>
-      Movie
+      <Hero detail={randomTrendMovie} />
       <Footer />
     </div>
   );

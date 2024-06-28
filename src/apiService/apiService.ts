@@ -22,11 +22,18 @@ const fetchTrending = async () => {
   }
 };
 
-const fetchRandomMovieTvDetails = async () => {
+const fetchRandomMovieTvDetails = async (detail: string) => {
   try {
-    const trendingResults = await fetchTrending();
-    const randomIndex = Math.floor(Math.random() * trendingResults.length);
-    const randomItem = trendingResults[randomIndex];
+    let detailResults;
+    if (detail === "randomTrending") {
+      detailResults = await fetchTrending();
+    } else if (detail === "randomMovieTrending") {
+      detailResults = await fetchTrendingMovies();
+    } else if (detail === "randomTvTrending") {
+      detailResults = await fetchTrendingTVShows();
+    }
+    const randomIndex = Math.floor(Math.random() * detailResults.length);
+    const randomItem = detailResults[randomIndex];
 
     if (randomItem.media_type === "movie") {
       const movieResponse = await axios.get(
@@ -42,7 +49,7 @@ const fetchRandomMovieTvDetails = async () => {
         }
       );
       return movieResponse.data;
-    } else {
+    } else if (randomItem.media_type === "tv") {
       const tvResponse = await axios.get(
         `https://api.themoviedb.org/3/tv/${randomItem.id}`,
         {
@@ -75,8 +82,28 @@ const fetchTrendingMovies = async () => {
     );
     return response.data.results;
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching trending Movies:", error);
   }
 };
 
-export { fetchRandomMovieTvDetails, fetchTrendingMovies };
+const fetchTrendingTVShows = async () => {
+  try {
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/trending/tv/day",
+      {
+        params: {
+          language: "pt-BR",
+        },
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching trending TV shows:", error);
+  }
+};
+
+export { fetchRandomMovieTvDetails };

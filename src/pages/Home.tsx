@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Hero from "../components/Hero";
 import { fetchRandomMovieTvDetails } from "../apiService/apiService";
-import { trending } from "../types/Tmdb";
+import { detail } from "../types/Tmdb";
 import Loading from "../components/Loading";
 import { Route, Routes } from "react-router-dom";
 import Movie from "../components/Movie";
@@ -9,11 +9,11 @@ import Tv from "../components/Tv";
 import Celebrities from "../components/Celebrities";
 
 const Home = () => {
-  const [randomTrend, setRandomTrend] = useState<trending | null>(null);
+  const [randomTrend, setRandomTrend] = useState<detail | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   const fetchRandomTrend = async () => {
-    const random = await fetchRandomMovieTvDetails();
+    const random = await fetchRandomMovieTvDetails("randomTrending");
     setRandomTrend(random);
   };
 
@@ -30,7 +30,7 @@ const Home = () => {
   ) : (
     <>
       <Routes>
-        <Route path="/" element={<Hero trending={randomTrend} />} />
+        <Route path="/" element={<Hero detail={randomTrend} />} />
         <Route path="series" element={<Tv />} />
         Movie
         <Route path="filmes" element={<Movie />} />
