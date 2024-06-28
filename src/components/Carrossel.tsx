@@ -16,28 +16,7 @@ const Carousel = ({ query }) => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // const images = [
-  //   {
-  //     src: "https://via.placeholder.com/300x150/00ff00/000000?text=Rainha+Charlotte",
-  //   },
-  //   { src: "https://via.placeholder.com/300x150/00ffff/000000?text=Dexter" },
-  //   { src: "https://via.placeholder.com/300x150/00ffff/000000?text=House" },
-  //   {
-  //     src: "https://via.placeholder.com/300x150/00ffff/000000?text=Peaky+Blinders",
-  //   },
-  //   {
-  //     src: "https://via.placeholder.com/300x150/00ffff/000000?text=Breaking+Bad",
-  //   },
-  //   { src: "https://via.placeholder.com/300x150/00ffff/000000?text=Voce" },
-  //   { src: "https://via.placeholder.com/300x150/00ffff/000000?text=Voce" },
-  //   { src: "https://via.placeholder.com/300x150/00ffff/000000?text=Voce" },
-  //   { src: "https://via.placeholder.com/300x150/00ffff/000000?text=Voce" },
-  //   { src: "https://via.placeholder.com/300x150/00ffff/000000?text=Voce" },
-  //   { src: "https://via.placeholder.com/300x150/00ffff/000000?text=Voce" },
-  //   { src: "https://via.placeholder.com/300x150/00ffff/000000?text=Voce" },
-  // ];
-
-  const itemsPerPage = 4;
+  const itemsPerPage = 5;
   const numPages = Math.ceil(movies.length / itemsPerPage);
 
   const goToNext = () => {
@@ -49,9 +28,9 @@ const Carousel = ({ query }) => {
   };
 
   return (
-    <>
-      <h2>Séries Dramáticas</h2>
-      <div className="flex justify-end mt-4">
+    <div className="bg-neutral-600">
+      <h2 className="text-xl ml-8 text-white font-bold pt-5">Séries Dramáticas</h2>
+      <div className="flex justify-end pb-4">
         {Array.from({ length: numPages }).map((_, index) => (
           <div
             key={index}
@@ -62,19 +41,19 @@ const Carousel = ({ query }) => {
           ></div>
         ))}
       </div>
-      <div className="relative overflow-hidden content-center">
+      <div className="relative overflow-hidden m-auto w-11/12">
         <div
-          className="flex transition-transform duration-500 ease-in-out"
+          className="flex transition-transform duration-500 ease-in-out gap-x-4" // Adiciona espaçamento horizontal
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {movies.map((image, index) => (
             <div
               key={index}
-              className="flex justify-center min-w-[25%] md:px-2"
+              className="flex min-w-[20%]"
             >
               <img
                 src={`https://image.tmdb.org/t/p/original/${image.poster_path}`}
-                className="h-full md:w-60 md:h-[361px]"
+                className="h-full md:w-60 md:h-[361px] rounded-2xl"
                 alt={image.title}
               />
             </div>
@@ -82,18 +61,18 @@ const Carousel = ({ query }) => {
         </div>
         <button
           onClick={goToPrevious}
-          className="absolute top-1/2 left-0 transform -translate-y-1/2 text-black font-black px-2 py-1"
+          className="absolute top-1/2 left-0 transform -translate-y-1/2 text-white font-black px-2 py-1"
         >
           &lt;
         </button>
         <button
           onClick={goToNext}
-          className="absolute top-1/2 right-0 transform -translate-y-1/2 text-black font-black px-2 py-1"
+          className="absolute top-1/2 right-0 transform -translate-y-1/2 text-white font-black px-2 py-1"
         >
           &gt;
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
