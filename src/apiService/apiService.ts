@@ -27,7 +27,6 @@ const fetchRandomMovieTvDetails = async () => {
     const trendingResults = await fetchTrending();
     const randomIndex = Math.floor(Math.random() * trendingResults.length);
     const randomItem = trendingResults[randomIndex];
-    console.log("🚀 ~ fetchRandomMovieTvDetails ~ randomItem:", randomItem);
 
     if (randomItem.media_type === "movie") {
       const movieResponse = await axios.get(
@@ -42,7 +41,6 @@ const fetchRandomMovieTvDetails = async () => {
           },
         }
       );
-      console.log("MOVIEEE", movieResponse.data);
       return movieResponse.data;
     } else {
       const tvResponse = await axios.get(
@@ -57,7 +55,6 @@ const fetchRandomMovieTvDetails = async () => {
           },
         }
       );
-      console.log("TVVVV", tvResponse.data);
       return tvResponse.data;
     }
   } catch (error) {
@@ -65,4 +62,21 @@ const fetchRandomMovieTvDetails = async () => {
   }
 };
 
-export { fetchRandomMovieTvDetails };
+const fetchTrendingMovies = async () => {
+  try {
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/trending/movie/day?language=pt-BR",
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.results;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { fetchRandomMovieTvDetails, fetchTrendingMovies };
