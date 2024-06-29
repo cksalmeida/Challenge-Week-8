@@ -12,7 +12,6 @@ interface Props {
   detail: detail | null;
 }
 const HeroInformation = ({ detail }: Props) => {
-  console.log(detail);
   const getYear = (dateString: string | undefined) => {
     return dateString ? new Date(dateString).getFullYear() : null;
   };

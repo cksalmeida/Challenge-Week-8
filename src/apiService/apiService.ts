@@ -167,7 +167,6 @@ const fetchPopularTVShows = async () => {
         },
       }
     );
-    console.log(response.data.results);
     return response.data.results;
   } catch (error) {
     console.error("Error fetching Popular TV shows:", error);
@@ -221,6 +220,30 @@ const fetchSearchCollection = async (query: string) => {
   }
 };
 
+const getSessionWithToken = async (requestToken: string) => {
+  console.log(requestToken);
+  try {
+    const url = "https://api.themoviedb.org/3/authentication/session/new";
+
+    const headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+
+    const data = {
+      request_token: requestToken,
+    };
+
+    const response = await axios.post(url, data, { headers });
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching session with token:", requestToken, error);
+    throw error;
+  }
+};
+
 export {
   fetchRandomMovieTvDetails,
   fetchSearchMovies,
@@ -230,4 +253,5 @@ export {
   fetchMoviesDetailsById,
   fetchTvDetailsById,
   fetchColletionDetailsById,
+  getSessionWithToken,
 };
