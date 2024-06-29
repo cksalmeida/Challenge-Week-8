@@ -18,18 +18,17 @@ const Tv = () => {
     setRandomTrendTv(random ? random : null);
   };
 
-  useEffect(() => {
-    fetchRandomTrendTv();
-  }, []);
+  const fetchTvDetails = async () => {
+    const movie = await fetchTvDetailsById(id ? id : "");
+    setTvClicked(movie);
+  };
 
   useEffect(() => {
-    const fetchTvDetails = async () => {
-      if (id) {
-        const movie = await fetchTvDetailsById(id);
-        setTvClicked(movie);
-      }
-    };
-    fetchTvDetails();
+    if (id) {
+      fetchTvDetails();
+    } else {
+      fetchRandomTrendTv();
+    }
   }, [id]);
 
   return (

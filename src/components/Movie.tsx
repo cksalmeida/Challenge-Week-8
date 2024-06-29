@@ -18,18 +18,17 @@ const Movie = () => {
     setRandomTrendMovie(random ? random : null);
   };
 
-  useEffect(() => {
-    fetchRandomTrendMovie();
-  }, []);
+  const fetchMovieDetails = async () => {
+    const movie = await fetchMoviesDetailsById(id ? id : "");
+    setMovieClicked(movie);
+  };
 
   useEffect(() => {
-    const fetchMovieDetails = async () => {
-      if (id) {
-        const movie = await fetchMoviesDetailsById(id);
-        setMovieClicked(movie);
-      }
-    };
-    fetchMovieDetails();
+    if (id) {
+      fetchMovieDetails();
+    } else {
+      fetchRandomTrendMovie();
+    }
   }, [id]);
 
   return (
