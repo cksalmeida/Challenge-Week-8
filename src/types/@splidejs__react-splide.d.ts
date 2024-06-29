@@ -10,6 +10,7 @@ declare module "@splidejs/react-splide" {
     rewindByDrag?: boolean;
     arrows?: boolean;
     start?: boolean;
+    breakpoints?;
   }
 
   interface SplideProps {

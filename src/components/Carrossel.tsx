@@ -10,11 +10,13 @@ const Carrossel = () => {
           type: "loop",
           perPage: 5,
           autoplay: true,
+          breakpoints: {
+            640: {
+              perPage: 2,
+            },
+          },
         }}
       >
-        <SplideSlide className="flex justify-center items-center">
-          <img src={img} alt="Description" className="mx-auto" />
-        </SplideSlide>
         <SplideSlide className="flex justify-center items-center">
           <img src={img} alt="Description" className="mx-auto" />
         </SplideSlide>
