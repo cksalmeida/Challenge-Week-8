@@ -54,6 +54,63 @@ const fetchRandomMovieTvDetails = async (
   }
 };
 
+const fetchMoviesDetailsById = async (id: string) => {
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${id}`,
+      {
+        params: {
+          language: "pt-BR",
+        },
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching Movies Details By Id:", error);
+  }
+};
+
+const fetchTvDetailsById = async (id: string) => {
+  try {
+    const response = await axios.get(`https://api.themoviedb.org/3/tv/${id}`, {
+      params: {
+        language: "pt-BR",
+      },
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching Tv Details By Id:", error);
+  }
+};
+
+const fetchColletionDetailsById = async (id: string) => {
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/collection/${id}`,
+      {
+        params: {
+          language: "pt-BR",
+        },
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching Colletion Details By Id:", error);
+  }
+};
+
 const fetchTrending = async () => {
   try {
     const response = await axios.get(
@@ -110,6 +167,7 @@ const fetchPopularTVShows = async () => {
         },
       }
     );
+    console.log(response.data.results);
     return response.data.results;
   } catch (error) {
     console.error("Error fetching Popular TV shows:", error);
@@ -169,4 +227,7 @@ export {
   fetchSearchCollection,
   fetchPopularMovies,
   fetchPopularTVShows,
+  fetchMoviesDetailsById,
+  fetchTvDetailsById,
+  fetchColletionDetailsById,
 };

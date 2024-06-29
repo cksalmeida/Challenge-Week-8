@@ -26,6 +26,7 @@ declare module "@splidejs/react-splide" {
   interface SplideSlideProps {
     className?: string;
     children?: React.ReactNode;
+    onClick?;
   }
 
   export class SplideSlide extends React.Component<SplideSlideProps> {}

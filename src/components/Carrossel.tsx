@@ -1,12 +1,20 @@
 import "@splidejs/react-splide/css";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   query: object[];
   title: string;
+  page: string;
 }
 
-const Carrossel = ({ query, title }: Props) => {
+const Carrossel = ({ query, title, page }: Props) => {
+  const navigate = useNavigate();
+
+  const handleItemClick = (id: number) => {
+    navigate(`/home/${page}/${id}`);
+  };
+
   return (
     <div className="flex flex-col items-start pb-14 pl-4 md:pl-20">
       <h4 className="mb-2 font-workSans font-bold text-xl text-white">
@@ -30,7 +38,11 @@ const Carrossel = ({ query, title }: Props) => {
         }}
       >
         {query.map((item: object) => (
-          <SplideSlide key={item?.id}>
+          <SplideSlide
+            key={item?.id}
+            onClick={() => handleItemClick(item.id)}
+            className={"cursor-pointer"}
+          >
             <img
               src={`https://image.tmdb.org/t/p/original/${item?.poster_path}`}
               alt={item?.name}

@@ -34,9 +34,21 @@ const HomeCarousels = () => {
 
   return (
     <div>
-      <Carrossel query={listColections} title={"Coleções de Hallowen"} />
-      <Carrossel query={listPopularTvs} title={"Séries em alta"} />
-      <Carrossel query={listPopularMovies} title={"Filmes em alta"} />
+      <Carrossel
+        query={listColections}
+        page="colecoes"
+        title={"Coleções de Hallowen"}
+      />
+      <Carrossel
+        query={listPopularTvs}
+        page="series"
+        title={"Séries em alta"}
+      />
+      <Carrossel
+        query={listPopularMovies}
+        page="filmes"
+        title={"Filmes em alta"}
+      />
     </div>
   );
 };

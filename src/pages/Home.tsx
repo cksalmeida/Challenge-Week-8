@@ -8,6 +8,7 @@ import Movie from "../components/Movie";
 import Tv from "../components/Tv";
 import Celebrities from "../components/Celebrities";
 import HomeCarousels from "../components/HomeCarousels";
+import Collection from "../components/Collection";
 
 const Home = () => {
   const [randomTrend, setRandomTrend] = useState<detail | null>(null);
@@ -40,9 +41,10 @@ const Home = () => {
             </>
           }
         />
-        <Route path="series" element={<Tv />} />
-        <Route path="filmes" element={<Movie />} />
-        <Route path="celebridades" element={<Celebrities />} />
+        <Route path="series/:id?" element={<Tv />} />
+        <Route path="filmes/:id?" element={<Movie />} />
+        <Route path="celebridades/:id?" element={<Celebrities />} />
+        <Route path="colecoes/:id" element={<Collection />} />
       </Routes>
     </div>
   );
