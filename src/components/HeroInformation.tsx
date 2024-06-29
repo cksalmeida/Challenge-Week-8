@@ -48,8 +48,8 @@ const HeroInformation = ({ trending }: Props) => {
   };
 
   return (
-    <div className="font-workSans text-white flex flex-col items-start mx-4 md:mx-0 md:max-w-3xl md:ml-20 mb-6 md:mb-0 gap-8 z-20 mt-[59.4px] md:mt-0">
-      <div className="text-neutral-100 flex flex-col gap-5">
+    <div className="min-h-[665px] w-full px-4 pb-6 md:px-24 font-workSans text-white flex flex-col items-start gap-8 z-20 bg-gradient-to-t from-indigo-950 to-[rgba(0,0,0,0)]">
+      <div className="text-neutral-100 flex flex-col gap-5 max-w-[60ch]">
         <h1 className="text-44px font-bold">
           {trending ? (trending.title ? trending.title : trending.name) : null}
         </h1>
@@ -81,7 +81,7 @@ const HeroInformation = ({ trending }: Props) => {
         <ButtonDefault
           img={infoVector}
           alt="Info"
-          className="bg-none text-white border border-white hover:bg-neutral-200 hover:text-neutral-600 hover:border-none"
+          className="bg-none text-white border border-white hover:bg-neutral-200 hover:text-neutral-600 hover:border-opacity-0"
         >
           MAIS INFORMAÇÕES
         </ButtonDefault>
