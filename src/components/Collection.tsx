@@ -1,0 +1,31 @@
+import { useEffect, useState } from "react";
+import Footer from "./Footer";
+import Hero from "./Hero";
+import { useParams } from "react-router-dom";
+import { fetchColletionDetailsById } from "../apiService/apiService";
+
+const Collection = () => {
+  const [collectionClicked, setCollectionClicked] = useState<object | null>(
+    null
+  );
+  const { id } = useParams<{ id: string }>();
+
+  useEffect(() => {
+    const fetchTvDetails = async () => {
+      if (id) {
+        const colletion = await fetchColletionDetailsById(id);
+        setCollectionClicked(colletion);
+      }
+    };
+    fetchTvDetails();
+  }, [id]);
+
+  return (
+    <div>
+      <Hero detail={collectionClicked} />
+      <Footer />
+    </div>
+  );
+};
+
+export default Collection;

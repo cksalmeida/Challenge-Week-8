@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
 import Footer from "./Footer";
 import { detail } from "../types/Tmdb";
-import { fetchRandomMovieTvDetails } from "../apiService/apiService";
+import {
+  fetchMoviesDetailsById,
+  fetchRandomMovieTvDetails,
+} from "../apiService/apiService";
 import Hero from "./Hero";
+import { useParams } from "react-router-dom";
 
 const Movie = () => {
   const [randomTrendMovie, setRandomTrendMovie] = useState<detail | null>(null);
+  const [movieClicked, setMovieClicked] = useState<detail | null>(null);
+  const { id } = useParams<{ id: string }>();
 
   const fetchRandomTrendMovie = async () => {
     const random = await fetchRandomMovieTvDetails("randomMovieTrending");
@@ -16,9 +22,19 @@ const Movie = () => {
     fetchRandomTrendMovie();
   }, []);
 
+  useEffect(() => {
+    const fetchMovieDetails = async () => {
+      if (id) {
+        const movie = await fetchMoviesDetailsById(id);
+        setMovieClicked(movie);
+      }
+    };
+    fetchMovieDetails();
+  }, [id]);
+
   return (
     <div>
-      <Hero detail={randomTrendMovie} />
+      <Hero detail={movieClicked || randomTrendMovie} />
       <Footer />
     </div>
   );
