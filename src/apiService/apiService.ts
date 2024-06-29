@@ -76,11 +76,11 @@ const fetchTrending = async () => {
 
 const fetchPopularMovies = async () => {
   try {
-    const response = await axios.get(
+    const movieResponse = await axios.get(
       "https://api.themoviedb.org/3/movie/popular",
       {
         params: {
-          language: "en-US",
+          language: "pt-BR",
           page: 1,
         },
         headers: {
@@ -89,7 +89,7 @@ const fetchPopularMovies = async () => {
         },
       }
     );
-    return response.data.results;
+    return movieResponse.data.results;
   } catch (error) {
     console.error("Error fetching Popular Movies:", error);
   }
@@ -116,4 +116,57 @@ const fetchPopularTVShows = async () => {
   }
 };
 
-export { fetchRandomMovieTvDetails };
+const fetchSearchMovies = async (query: string) => {
+  try {
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/search/movie",
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          query: query,
+          include_adult: true,
+          language: "pt-BR",
+          primary_release_year: 2023,
+          page: 1,
+        },
+      }
+    );
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching search movie:", error);
+  }
+};
+
+const fetchSearchCollection = async (query: string) => {
+  try {
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/search/collection",
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          query: query,
+          include_adult: false,
+          language: "pt-BR",
+          page: 1,
+        },
+      }
+    );
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching collection:", error);
+  }
+};
+
+export {
+  fetchRandomMovieTvDetails,
+  fetchSearchMovies,
+  fetchSearchCollection,
+  fetchPopularMovies,
+  fetchPopularTVShows,
+};

@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import Movie from "../components/Movie";
 import Tv from "../components/Tv";
 import Celebrities from "../components/Celebrities";
+import HomeCarousels from "../components/HomeCarousels";
 
 const Home = () => {
   const [randomTrend, setRandomTrend] = useState<detail | null>(null);
@@ -28,14 +29,22 @@ const Home = () => {
   return loading === true ? (
     <Loading />
   ) : (
-    <>
+    <div className="bg-neutral-600">
       <Routes>
-        <Route path="/" element={<Hero detail={randomTrend} />} />
+        <Route
+          path="/"
+          element={
+            <>
+              <Hero detail={randomTrend} />
+              <HomeCarousels />
+            </>
+          }
+        />
         <Route path="series" element={<Tv />} />
         <Route path="filmes" element={<Movie />} />
         <Route path="celebridades" element={<Celebrities />} />
       </Routes>
-    </>
+    </div>
   );
 };
 
