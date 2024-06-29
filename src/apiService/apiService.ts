@@ -86,4 +86,27 @@ const fetchSearchMovies = async (query: string) => {
   }
 };
 
-export { fetchRandomMovieTvDetails, fetchSearchMovies };
+const fetchSearchCollection = async (query: string) => {
+  try {
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/search/collection",
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          query: query,
+          include_adult: false,
+          language: "pt-BR",
+          page: 1,
+        },
+      }
+    );
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching random movie or TV details:", error);
+  }
+};
+
+export { fetchRandomMovieTvDetails, fetchSearchMovies, fetchSearchCollection };

@@ -17,7 +17,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="bg-neutral-600">
       <Hero trending={randomTrend} />
       <HomeCarousels />
     </div>
