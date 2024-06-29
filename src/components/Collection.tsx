@@ -3,9 +3,10 @@ import Footer from "./Footer";
 import Hero from "./Hero";
 import { useParams } from "react-router-dom";
 import { fetchColletionDetailsById } from "../apiService/apiService";
+import { detail } from "../types/Tmdb";
 
 const Collection = () => {
-  const [collectionClicked, setCollectionClicked] = useState<object | null>(
+  const [collectionClicked, setCollectionClicked] = useState<detail | null>(
     null
   );
   const { id } = useParams<{ id: string }>();
