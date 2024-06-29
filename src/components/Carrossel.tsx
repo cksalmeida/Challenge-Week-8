@@ -8,16 +8,20 @@ interface Props {
 
 const Carrossel = ({ query, title }: Props) => {
   return (
-    <div className="flex flex-col items-start pb-14">
-      <h4 className="ml-1 md:ml-24 lg:ml-16 mb-2 font-workSans font-bold text-xl text-white">
+    <div className="flex flex-col items-start pb-14 pl-4 md:pl-20">
+      <h4 className="mb-2 font-workSans font-bold text-xl text-white">
         {title}
       </h4>
       <Splide
         options={{
-          type: "loop",
-          perPage: 5,
+          type: "slide",
+          rewind: true,
+          rewindByDrag: true,
+          perPage: 7,
+          gap: "20px",
           autoplay: true,
           pagination: false,
+          arrows: false,
           breakpoints: {
             1024: {
               perPage: 2,
@@ -26,14 +30,11 @@ const Carrossel = ({ query, title }: Props) => {
         }}
       >
         {query.map((item: object) => (
-          <SplideSlide
-            className="flex justify-center items-center px-1 md:p-0 md:h-[361px] md:w-60"
-            key={item?.id}
-          >
+          <SplideSlide key={item?.id}>
             <img
               src={`https://image.tmdb.org/t/p/original/${item?.poster_path}`}
               alt={item?.name}
-              className="mx-auto h-full rounded-lg"
+              className="rounded-lg h-[361px] w-60"
             />
           </SplideSlide>
         ))}
