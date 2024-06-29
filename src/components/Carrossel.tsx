@@ -31,9 +31,12 @@ const Carrossel = ({ query, title, page }: Props) => {
           pagination: false,
           arrows: false,
           breakpoints: {
-            1024: {
-              perPage: 2,
-            },
+            375: { perPage: 1 },
+            768: { perPage: 2 },
+            1024: { perPage: 3 },
+            1280: { perPage: 4 },
+            1440: { perPage: 5 },
+            1600: { perPage: 6 },
           },
         }}
       >
@@ -46,7 +49,7 @@ const Carrossel = ({ query, title, page }: Props) => {
             <img
               src={`https://image.tmdb.org/t/p/original/${item?.poster_path}`}
               alt={item?.name}
-              className="rounded-lg h-[361px] w-60"
+              className="rounded-lg h-[361px] w-full max-w-xs"
             />
           </SplideSlide>
         ))}
