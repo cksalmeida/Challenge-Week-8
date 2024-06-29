@@ -4,7 +4,7 @@ export interface ApiResponse {
   success: boolean;
 }
 
-export interface trending {
+export interface detail {
   adult?: boolean;
   backdrop_path?: string;
   belongs_to_collection?: undefined;

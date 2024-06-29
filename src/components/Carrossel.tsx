@@ -17,6 +17,7 @@ const Carrossel = ({ query, title }: Props) => {
           type: "loop",
           perPage: 5,
           autoplay: true,
+          pagination: false,
           breakpoints: {
             1024: {
               perPage: 2,
@@ -26,7 +27,7 @@ const Carrossel = ({ query, title }: Props) => {
       >
         {query.map((item: object) => (
           <SplideSlide
-            className="flex justify-center items-center h-[361px] w-60"
+            className="flex justify-center items-center px-1 md:p-0 md:h-[361px] md:w-60"
             key={item?.id}
           >
             <img

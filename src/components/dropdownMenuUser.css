@@ -1,0 +1,33 @@
+.dropDownUser {
+  position: absolute;
+  transform: translate(-78%, 5%);
+  width: 248px;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #353843;
+  box-shadow: 0px 4px 20px 0px #00000066;
+  z-index: 1000;
+}
+
+.dropDownUser::before {
+  content: "";
+  position: absolute;
+  top: -0.7rem;
+  right: 1.1rem;
+  width: 20px;
+  height: 20px;
+  transform: rotate(45deg);
+  border-left: 1px solid #353843;
+  border-top: 1px solid #353843;
+}
+
+@media (min-width: 768px) {
+  .dropDownUser {
+    transform: translate(-78%, 5%);
+  }
+
+  .dropDownUser::before {
+    top: -0.7rem;
+    right: 1.1rem;
+  }
+}

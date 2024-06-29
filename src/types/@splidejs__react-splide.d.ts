@@ -11,6 +11,7 @@ declare module "@splidejs/react-splide" {
     arrows?: boolean;
     start?: boolean;
     breakpoints?;
+    pagination?;
     gap?;
   }
 
