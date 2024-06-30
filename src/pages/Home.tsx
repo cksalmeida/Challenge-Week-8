@@ -36,7 +36,7 @@ const Home = () => {
       setLoading(false);
     }, 1000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [requestToken]);
 
   return loading === true ? (
     <Loading />
