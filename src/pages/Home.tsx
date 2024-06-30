@@ -25,6 +25,12 @@ const Home = () => {
   };
 
   const fetchSessionId = async (requestToken: string) => {
+    if (localStorage.getItem("session_Id")) {
+      return;
+    }
+    if (localStorage.getItem("guest_session_id")) {
+      return;
+    }
     const SessionId = await getSessionWithToken(requestToken);
     localStorage.setItem("session_Id", SessionId.session_id);
   };
