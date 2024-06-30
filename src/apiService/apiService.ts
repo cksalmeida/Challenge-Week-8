@@ -2,6 +2,7 @@ import axios from "axios";
 import { detail } from "../types/Tmdb";
 
 const token: string = import.meta.env.VITE_TMDB_API_KEY;
+const accountId: string = import.meta.env.VITE_TMDB_ACCOUNT_ID;
 
 const fetchRandomMovieTvDetails = async (
   detail: string
@@ -244,6 +245,114 @@ const getSessionWithToken = async (requestToken: string) => {
   }
 };
 
+const addToFavorites = async (
+  sessionId: string,
+  mediaType: string,
+  mediaId: number
+) => {
+  const url = `https://api.themoviedb.org/3/account/${accountId}/favorite?session_id=${sessionId}`;
+
+  const body = {
+    media_type: mediaType,
+    media_id: mediaId,
+    favorite: true,
+  };
+
+  try {
+    const response = await axios.post(url, body, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error adding to favorites:", error);
+  }
+};
+
+const removeFavorites = async (
+  sessionId: string,
+  mediaType: string,
+  mediaId: number
+) => {
+  const url = `https://api.themoviedb.org/3/account/${accountId}/favorite?session_id=${sessionId}`;
+
+  const body = {
+    media_type: mediaType,
+    media_id: mediaId,
+    favorite: false,
+  };
+
+  try {
+    const response = await axios.post(url, body, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error adding to favorites:", error);
+  }
+};
+
+const addToWatchlist = async (
+  sessionId: string,
+  mediaType: string,
+  mediaId: number
+) => {
+  const url = `https://api.themoviedb.org/3/account/21347247/watchlist?session_id=${sessionId}`;
+
+  const body = {
+    media_type: mediaType,
+    media_id: mediaId,
+    watchlist: true,
+  };
+
+  try {
+    const response = await axios.post(url, body, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error adding to watchlist:", error);
+  }
+};
+
+const removeWatchlist = async (
+  sessionId: string,
+  mediaType: string,
+  mediaId: number
+) => {
+  const url = `https://api.themoviedb.org/3/account/21347247/watchlist?session_id=${sessionId}`;
+
+  const body = {
+    media_type: mediaType,
+    media_id: mediaId,
+    watchlist: false,
+  };
+
+  try {
+    const response = await axios.post(url, body, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error adding to watchlist:", error);
+  }
+};
+
 export {
   fetchRandomMovieTvDetails,
   fetchSearchMovies,
@@ -254,4 +363,8 @@ export {
   fetchTvDetailsById,
   fetchColletionDetailsById,
   getSessionWithToken,
+  addToFavorites,
+  removeFavorites,
+  addToWatchlist,
+  removeWatchlist,
 };

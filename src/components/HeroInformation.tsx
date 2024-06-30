@@ -12,6 +12,8 @@ interface Props {
   detail: detail | null;
 }
 const HeroInformation = ({ detail }: Props) => {
+  const sessionId = localStorage.getItem("session_Id");
+
   const getYear = (dateString: string | undefined) => {
     return dateString ? new Date(dateString).getFullYear() : null;
   };
@@ -93,7 +95,6 @@ const HeroInformation = ({ detail }: Props) => {
           img={infoVector}
           alt="Info"
           className="bg-none text-white border border-white hover:bg-neutral-200 hover:text-neutral-600 hover:border-none"
-          onClick={() => console.log("Button clicked!")}
         >
           MAIS INFORMAÇÕES
         </ButtonDefault>
@@ -105,11 +106,19 @@ const HeroInformation = ({ detail }: Props) => {
           ""
         )}
         <div className="flex gap-6">
-          <ButtonRounded img={addVector} hoverImg={addHoverVector} alt="Add" />
+          <ButtonRounded
+            img={addVector}
+            hoverImg={addHoverVector}
+            alt="Add"
+            detail={detail}
+            sessionId={sessionId}
+          />
           <ButtonRounded
             img={starVector}
             hoverImg={starHoverVector}
             alt="Favorite"
+            detail={detail}
+            sessionId={sessionId}
           />
         </div>
       </div>
