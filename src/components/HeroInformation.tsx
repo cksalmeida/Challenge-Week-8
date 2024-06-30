@@ -4,17 +4,18 @@ import addVector from "../assets/addVector.svg";
 import addHoverVector from "../assets/addHoverVector.svg";
 import starVector from "../assets/starVector.svg";
 import starHoverVector from "../assets/starHoverVector.svg";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import ButtonDefault from "./ButtonDefault";
 import ButtonRounded from "./ButtonRounded";
 import { season, detail, collectionParts } from "../types/Tmdb";
-import Tooltip from "./Tooltip"
+import Tooltip from "./Tooltip";
 
 interface Props {
   detail: detail | null;
 }
 const HeroInformation = ({ detail }: Props) => {
-  console.log(detail);
+  const sessionId = localStorage.getItem("session_Id");
+
   const getYear = (dateString: string | undefined) => {
     return dateString ? new Date(dateString).getFullYear() : null;
   };
@@ -85,20 +86,19 @@ const HeroInformation = ({ detail }: Props) => {
         <p className="font-normal text-xl">{detail ? detail.overview : null}</p>
       </div>
       <div className="flex flex-col md:flex-row gap-6 items-start">
-        <Link to='/player'>
-        <ButtonDefault
-          img={playVector}
-          alt="Play"
-          className="bg-white text-neutral-600 hover:bg-neutral-200"
-        >
-          VER AGORA
-        </ButtonDefault>
+        <Link to="/player">
+          <ButtonDefault
+            img={playVector}
+            alt="Play"
+            className="bg-white text-neutral-600 hover:bg-neutral-200"
+          >
+            VER AGORA
+          </ButtonDefault>
         </Link>
         <ButtonDefault
           img={infoVector}
           alt="Info"
           className="bg-none text-white border border-white hover:bg-neutral-200 hover:text-neutral-600 hover:border-none"
-          onClick={() => console.log("Button clicked!")}
         >
           MAIS INFORMAÇÕES
         </ButtonDefault>
@@ -111,14 +111,22 @@ const HeroInformation = ({ detail }: Props) => {
         )}
         <div className="flex gap-6">
           <Tooltip text='Adicionar à "Assistir mais tarde"'>
-          <ButtonRounded img={addVector} hoverImg={addHoverVector} alt="Add" />
+            <ButtonRounded
+              img={addVector}
+              hoverImg={addHoverVector}
+              alt="Add"
+              detail={detail}
+              sessionId={sessionId}
+            />
           </Tooltip>
-          <Tooltip text='Adicionar aos Favoritos'>
-          <ButtonRounded
-            img={starVector}
-            hoverImg={starHoverVector}
-            alt="Favorite"
-          />
+          <Tooltip text="Adicionar aos Favoritos">
+            <ButtonRounded
+              img={starVector}
+              hoverImg={starHoverVector}
+              alt="Favorite"
+              detail={detail}
+              sessionId={sessionId}
+            />
           </Tooltip>
         </div>
       </div>
