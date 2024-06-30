@@ -4,9 +4,11 @@ import addVector from "../assets/addVector.svg";
 import addHoverVector from "../assets/addHoverVector.svg";
 import starVector from "../assets/starVector.svg";
 import starHoverVector from "../assets/starHoverVector.svg";
+import { Link } from "react-router-dom";
 import ButtonDefault from "./ButtonDefault";
 import ButtonRounded from "./ButtonRounded";
 import { season, detail, collectionParts } from "../types/Tmdb";
+import Tooltip from "./Tooltip";
 
 interface Props {
   detail: detail | null;
@@ -84,13 +86,15 @@ const HeroInformation = ({ detail }: Props) => {
         <p className="font-normal text-xl">{detail ? detail.overview : null}</p>
       </div>
       <div className="flex flex-col md:flex-row gap-6 items-start">
-        <ButtonDefault
-          img={playVector}
-          alt="Play"
-          className="bg-white text-neutral-600 hover:bg-neutral-200"
-        >
-          VER AGORA
-        </ButtonDefault>
+        <Link to="/player">
+          <ButtonDefault
+            img={playVector}
+            alt="Play"
+            className="bg-white text-neutral-600 hover:bg-neutral-200"
+          >
+            VER AGORA
+          </ButtonDefault>
+        </Link>
         <ButtonDefault
           img={infoVector}
           alt="Info"
@@ -106,20 +110,24 @@ const HeroInformation = ({ detail }: Props) => {
           ""
         )}
         <div className="flex gap-6">
-          <ButtonRounded
-            img={addVector}
-            hoverImg={addHoverVector}
-            alt="Add"
-            detail={detail}
-            sessionId={sessionId}
-          />
-          <ButtonRounded
-            img={starVector}
-            hoverImg={starHoverVector}
-            alt="Favorite"
-            detail={detail}
-            sessionId={sessionId}
-          />
+          <Tooltip text='Adicionar à "Assistir mais tarde'>
+            <ButtonRounded
+              img={addVector}
+              hoverImg={addHoverVector}
+              alt="Add"
+              detail={detail}
+              sessionId={sessionId}
+            />
+          </Tooltip>
+          <Tooltip text="Adicionar aos Favoritos">
+            <ButtonRounded
+              img={starVector}
+              hoverImg={starHoverVector}
+              alt="Favorite"
+              detail={detail}
+              sessionId={sessionId}
+            />
+          </Tooltip>
         </div>
       </div>
     </div>
