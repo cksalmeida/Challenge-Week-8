@@ -4,6 +4,7 @@ import addVector from "../assets/addVector.svg";
 import addHoverVector from "../assets/addHoverVector.svg";
 import starVector from "../assets/starVector.svg";
 import starHoverVector from "../assets/starHoverVector.svg";
+import { Link } from 'react-router-dom';
 import ButtonDefault from "./ButtonDefault";
 import ButtonRounded from "./ButtonRounded";
 import { season, detail, collectionParts } from "../types/Tmdb";
@@ -83,6 +84,7 @@ const HeroInformation = ({ detail }: Props) => {
         <p className="font-normal text-xl">{detail ? detail.overview : null}</p>
       </div>
       <div className="flex flex-col md:flex-row gap-6 items-start">
+        <Link to='/player'>
         <ButtonDefault
           img={playVector}
           alt="Play"
@@ -90,6 +92,7 @@ const HeroInformation = ({ detail }: Props) => {
         >
           VER AGORA
         </ButtonDefault>
+        </Link>
         <ButtonDefault
           img={infoVector}
           alt="Info"

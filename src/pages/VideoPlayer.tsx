@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import trailer from '../assets/trailer.mp4';
 import arrowBack from '../assets/arrowBack.svg';
 import replay from '../assets/replay10.svg';
@@ -14,6 +15,7 @@ import fullScreen from '../assets/expand.svg';
 import Tooltip from '../components/Tooltip';
 
 const VideoPlayer: React.FC = () => {
+  const navigate = useNavigate();
   const videoRef = useRef<HTMLVideoElement>(null);
   const progressRef = useRef<HTMLInputElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -86,15 +88,13 @@ const VideoPlayer: React.FC = () => {
   };
 
   return (
-    <div
-      className='relative flex flex-col h-screen w-screen overflow-hidden'
+    <div className='relative flex flex-col h-screen w-screen overflow-hidden'
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-
+      onMouseLeave={() => setIsHovered(false)}>
+      
       <div className={`absolute top-0 left-0 right-0 flex justify-between items-center p-4 h-982px bg-gradient-to-b from-black/70 to-transparent text-white z-10 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
         <div className='flex items-center'>
-          <button className='mr-4'>
+          <button className='mr-4' onClick={() => navigate(-1)}>
             <img src={arrowBack} alt='Voltar' className='h-12 w-12' />
           </button>
           <h1 className='text-xl font-lato font-bold'>O Menino e a Garça</h1>
@@ -103,14 +103,9 @@ const VideoPlayer: React.FC = () => {
       </div>
 
       <div className='relative flex-grow bg-transparent'>
-        <video
-          ref={videoRef}
-          className='w-full h-full object-cover'
-          onTimeUpdate={handleTimeUpdate}
-          onLoadedMetadata={handleLoadedMetadata}
-          controls={false}
-          muted={false}
-        >
+        <video ref={videoRef} className='w-full h-full object-cover bg-transparent'
+          onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleLoadedMetadata}
+          controls={false} muted={false}>
           <source src={trailer} type='video/mp4' />
           Your browser does not support the video tag.
         </video>
@@ -131,65 +126,49 @@ const VideoPlayer: React.FC = () => {
               <img src={forward} alt="Avançar" className='w-8 h-8' />
             </button>
             <div className='flex items-center'>
-
               <button onClick={toggleVolume} className='mr-2'>
                 <img src={volumeIcon} alt='Volume' className='h-8 w-8' />
               </button>
-
               {showVolume && (
-                <input
-                  type='range'
-                  min='0'
-                  max='1'
-                  step='0.1'
-                  value={volumeLevel}
-                  onChange={handleVolumeChange}
-                  className='w-1/3'
-                />
+                <input type='range' min='0' max='1' step='0.1'
+                  value={volumeLevel} onChange={handleVolumeChange}
+                  className='w-1/3' />
               )}
               <span className='text-xs font-lato'>
                 {formatTime(currentTime)} / {formatTime(duration)}
               </span>
             </div>
           </div>
-
           <div className='flex items-center space-x-4'>
             <Tooltip text='Ajuda'>
-            <button>
-              <img src={helpIcon} alt='Ajuda' className='w-8 h-8' />
-            </button>
+              <button>
+                <img src={helpIcon} alt='Ajuda' className='w-8 h-8' />
+              </button>
             </Tooltip>
             <button>
               <img src={nextEp} alt='Próximo episódio' className='w-8 h-8' />
             </button>
             <Tooltip text='Episódios'>
-            <button>
-              <img src={episodes} alt='Episódios' className='w-8 h-8' />
-            </button>
+              <button>
+                <img src={episodes} alt='Episódios' className='w-8 h-8' />
+              </button>
             </Tooltip>
             <Tooltip text='Legendas'>
-            <button>
-              <img src={subs} alt='Legendas' className='w-8 h-8' />
-            </button>
+              <button>
+                <img src={subs} alt='Legendas' className='w-8 h-8' />
+              </button>
             </Tooltip>
             <Tooltip text='Tela cheia'>
-            <button>
-              <img src={fullScreen} alt='Tela cheia' className='w-8 h-8' />
-            </button>
+              <button>
+                <img src={fullScreen} alt='Tela cheia' className='w-8 h-8' />
+              </button>
             </Tooltip>
           </div>
         </div>
 
-        {/* Progress Bar */}
-        <input
-          ref={progressRef}
-          type='range'
-          min='0'
-          max={duration}
-          value={currentTime}
-          onChange={handleProgressChange}
-          className={`absolute bottom-20 left-0 right-0 mx-12 h-12px z-20 transition-opacity duration-300 ${isHovered ? 'opacity-50' : 'opacity-0'}`}
-        />
+        <input ref={progressRef} type='range' min='0' max={duration}
+          value={currentTime} onChange={handleProgressChange}
+          className={`absolute bottom-20 left-0 right-0 mx-12 h-12px z-20 transition-opacity duration-300 ${isHovered ? 'opacity-50' : 'opacity-0'}`} />
       </div>
     </div>
   );
