@@ -9,17 +9,22 @@ const fetchRandomMovieTvDetails = async (
 ): Promise<detail | undefined> => {
   try {
     let detailResults;
+    let movie = false;
+    let tv = false;
     if (detail === "randomTrending") {
       detailResults = await fetchTrending();
     } else if (detail === "randomMovieTrending") {
       detailResults = await fetchPopularMovies();
+      movie = true;
     } else if (detail === "randomTvTrending") {
       detailResults = await fetchPopularTVShows();
+      tv = true;
     }
     const randomIndex = Math.floor(Math.random() * detailResults.length);
     const randomItem = detailResults[randomIndex];
 
-    if (randomItem.media_type === "movie") {
+    if (randomItem.media_type === "movie" || movie) {
+      console.log("teste");
       const movieResponse = await axios.get(
         `https://api.themoviedb.org/3/movie/${randomItem.id}`,
         {
@@ -33,7 +38,7 @@ const fetchRandomMovieTvDetails = async (
         }
       );
       return movieResponse.data;
-    } else if (randomItem.media_type === "tv") {
+    } else if (randomItem.media_type === "tv" || tv) {
       const tvResponse = await axios.get(
         `https://api.themoviedb.org/3/tv/${randomItem.id}`,
         {
@@ -133,6 +138,7 @@ const fetchTrending = async () => {
 };
 
 const fetchPopularMovies = async () => {
+  console.log("first");
   try {
     const movieResponse = await axios.get(
       "https://api.themoviedb.org/3/movie/popular",
