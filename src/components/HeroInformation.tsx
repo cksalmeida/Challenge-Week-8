@@ -12,8 +12,9 @@ import Tooltip from "./Tooltip";
 
 interface Props {
   detail: detail | null;
+  id: string | null;
 }
-const HeroInformation = ({ detail }: Props) => {
+const HeroInformation = ({ detail, id }: Props) => {
   const sessionId = localStorage.getItem("session_Id");
 
   const getYear = (dateString: string | undefined) => {
@@ -73,6 +74,19 @@ const HeroInformation = ({ detail }: Props) => {
     return null;
   };
 
+  const verifyMoviesOrTvs = (): string => {
+    return detail?.runtime ? "filmes" : "series";
+  };
+
+  const isHomePage = () => {
+    const currentPath = window.location.pathname;
+    return currentPath.includes(`home/${verifyMoviesOrTvs()}`);
+  };
+
+  const toPath = isHomePage()
+    ? `${detail?.id}`
+    : `${verifyMoviesOrTvs()}/${detail?.id}`;
+
   return (
     <div className="font-workSans text-white flex flex-col items-start mx-4 md:mx-0 md:max-w-3xl md:ml-20 mb-6 md:mb-0 gap-8 z-20 relative">
       <div className="text-neutral-100 flex flex-col gap-5">
@@ -83,10 +97,12 @@ const HeroInformation = ({ detail }: Props) => {
           {releaseYear} • {renderRuntimeOrSeasons(detail)}
         </p>
         <p className="text-xs font-normal">{renderGenres()}</p>
-        <p className="font-normal text-xl">{detail ? detail.overview : null}</p>
       </div>
+      <p className={`font-normal text-xl ${id ? "order-last" : ""}`}>
+        {detail ? detail.overview : null}
+      </p>
       <div className="flex flex-col md:flex-row gap-6 items-start">
-        <Link to="/player">
+        <Link to="player">
           <ButtonDefault
             img={playVector}
             alt="Play"
@@ -95,20 +111,22 @@ const HeroInformation = ({ detail }: Props) => {
             VER AGORA
           </ButtonDefault>
         </Link>
-        <ButtonDefault
-          img={infoVector}
-          alt="Info"
-          className="bg-none text-white border border-white hover:bg-neutral-200 hover:text-neutral-600 hover:border-none"
-        >
-          MAIS INFORMAÇÕES
-        </ButtonDefault>
-        {false! ? (
-          <ButtonDefault className="bg-none text-white border border-white">
+        {!id ? (
+          <Link to={toPath}>
+            <ButtonDefault
+              img={infoVector}
+              alt="Info"
+              className="bg-none text-white border border-white hover:bg-neutral-200 hover:text-neutral-600 hover:border-none"
+            >
+              MAIS INFORMAÇÕES
+            </ButtonDefault>
+          </Link>
+        ) : null}
+        {id ? (
+          <ButtonDefault className="bg-none text-white border border-white hover:bg-neutral-200 hover:text-neutral-600 hover:border-none">
             TRAILER
           </ButtonDefault>
-        ) : (
-          ""
-        )}
+        ) : null}
         <div className="flex gap-6">
           <Tooltip text='Adicionar à "Assistir mais tarde"'>
             <ButtonRounded
