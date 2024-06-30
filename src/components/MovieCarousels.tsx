@@ -43,7 +43,7 @@ const MovieCarousels = () => {
 
 
   return (
-    <div>
+    <div className="flex flex-col gap-14">
     <Carrossel 
       query={listNowPlaying} 
       page="filmes" 
@@ -62,7 +62,7 @@ const MovieCarousels = () => {
     <Carrossel 
       query={listUpcomingMovies} 
       page="filmes" 
-      title="Em Breve" 
+      title="Em Breve"
       />
   </div>
   );

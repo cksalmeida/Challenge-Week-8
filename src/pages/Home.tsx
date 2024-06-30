@@ -44,20 +44,36 @@ const Home = () => {
           }
         />
         <Route
-          path="series/:id?"
+          path="/series"
           element={
             <>
               <Hero detail={randomTrend} />
-              <TvCarousels />
+              <TvCarousels/>
             </>
           }
         />
         <Route
-          path="filmes/:id?"
+          path="series/:id"
+          element={
+            <>
+              <Tv />
+            </>
+          }
+        />
+        <Route
+          path="/filmes"
           element={
             <>
               <Hero detail={randomTrend} />
-              <MovieCarousels />
+              <MovieCarousels/>
+            </>
+          }
+        />
+        <Route
+          path="filmes/:id"
+          element={
+            <>
+              <Movie />
             </>
           }
         />

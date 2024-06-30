@@ -44,7 +44,7 @@ const TvCarousels = () => {
       }, []);
 
   return (
-    <div>
+    <div className="flex flex-col gap-14">
       <Carrossel
         query={listAiringToday}
         page="series"

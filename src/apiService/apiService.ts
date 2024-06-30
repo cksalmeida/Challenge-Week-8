@@ -260,7 +260,6 @@ const fetchOnTheAirTVShows = async () => {
   }
 };
 
-// Função para buscar séries mais bem avaliadas
 const fetchTopRatedTVShows = async () => {
   try {
     const response = await axios.get("https://api.themoviedb.org/3/tv/top_rated", {
