@@ -53,7 +53,7 @@ const TvCarousels = () => {
       <Carrossel
         query={listPopularTvs}
         page="series"
-        title={"Séries Populares"}
+        title={"Populares"}
       />
       <Carrossel 
         query={listOnTheAir} 

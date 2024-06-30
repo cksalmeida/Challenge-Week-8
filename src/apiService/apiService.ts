@@ -279,6 +279,60 @@ const fetchTopRatedTVShows = async () => {
   }
 };
 
+const fetchNowPlayingMovies = async () => {
+  try {
+    const response = await axios.get("https://api.themoviedb.org/3/movie/now_playing", {
+      params: {
+        language: "pt-BR",
+        page: 1,
+      },
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Now Playing Movies:", error);
+  }
+};
+
+const fetchTopRatedMovies = async () => {
+  try {
+    const response = await axios.get("https://api.themoviedb.org/3/movie/top_rated", {
+      params: {
+        language: "pt-BR",
+        page: 1,
+      },
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Top Rated Movies:", error);
+  }
+};
+
+const fetchUpcomingMovies = async () => {
+  try {
+    const response = await axios.get("https://api.themoviedb.org/3/movie/upcoming", {
+      params: {
+        language: "pt-BR",
+        page: 1,
+      },
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Upcoming Movies:", error);
+  }
+};
+
 export {
   fetchRandomMovieTvDetails,
   fetchSearchMovies,
@@ -291,4 +345,7 @@ export {
   fetchAiringTodayTVShows,
   fetchOnTheAirTVShows,
   fetchTopRatedTVShows,
+  fetchNowPlayingMovies,
+  fetchTopRatedMovies,
+  fetchUpcomingMovies,
 };

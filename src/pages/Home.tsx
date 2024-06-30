@@ -9,6 +9,7 @@ import Tv from "../components/Tv";
 import Celebrities from "../components/Celebrities";
 import HomeCarousels from "../components/HomeCarousels";
 import TvCarousels from "../components/TvCarousels";
+import MovieCarousels from "../components/MovieCarousels";
 import Collection from "../components/Collection";
 
 const Home = () => {
@@ -51,7 +52,15 @@ const Home = () => {
             </>
           }
         />
-        <Route path="filmes/:id?" element={<Movie />} />
+        <Route
+          path="filmes/:id?"
+          element={
+            <>
+              <Hero detail={randomTrend} />
+              <MovieCarousels />
+            </>
+          }
+        />
         <Route path="celebridades/:id?" element={<Celebrities />} />
         <Route path="colecoes/:id" element={<Collection />} />
       </Routes>
