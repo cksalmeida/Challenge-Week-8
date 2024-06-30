@@ -110,7 +110,7 @@ const HeroInformation = ({ detail }: Props) => {
           ""
         )}
         <div className="flex gap-6">
-          <Tooltip text='Adicionar à "Assistir mais tarde'>
+          <Tooltip text='Adicionar à "Assistir mais tarde"'>
             <ButtonRounded
               img={addVector}
               hoverImg={addHoverVector}
