@@ -28,7 +28,7 @@ const CollectionCarousel: React.FC<CollectionCarouselProps> = ({ collectionId })
   }, [collectionId]);
 
   return (
-    <div>
+    <div className="pb-14 pl-4 md:pl-20 flex flex-col gap-14">
       {collection.length > 0 ? (
         <Carrossel query={collection} page="movies" title="Filmes da Coleção" />
       ) : (

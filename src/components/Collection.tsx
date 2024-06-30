@@ -24,8 +24,8 @@ const Collection = () => {
 
   return (
     <div>
-      <CollectionCarousel collectionId={id}/>
       <Hero detail={collectionClicked} id={id ? id : null} />
+      <CollectionCarousel collectionId={id}/>
       <Footer />
     </div>
   );
