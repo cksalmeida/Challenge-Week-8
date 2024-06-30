@@ -9,6 +9,7 @@ import userIcon from "../assets/logged_user.svg";
 import closeIcon from "../assets/icons/close.svg";
 import { useState } from "react";
 import DropdownMenuUser from "./DropdownMenuUser";
+import "./header.css";
 
 const Header = () => {
   const [openDropdownMenu, setOpenDropdownMenu] = useState(false);
@@ -19,21 +20,21 @@ const Header = () => {
   };
 
   return (
-    <div className="relative">
+    <header className="relative w-full z-[1000] header">
       <div className="flex flex-col md:flex-row gap-4 py-4 px-8 items-center md:justify-between">
         <img src={compassLogo} alt="compassLogo" className="w-[200px]" />
         <div className="flex flex-row md:order-2 justify-center items-center font-workSans text-base text-white gap-4 w-full md:justify-end">
           {showSearchBox ? (
-            <div className="bg-transparent px-3 py-4 flex flex-col gap-4">
+            <div className="px-3 flex flex-col items-center md:flex-wrap md:flex-row gap-4 bg-neutral-700">
               <input
-                className="bg-transparent"
+                className="bg-neutral-700 font-lato md:w-[187px] pt-3 md:py-1 text-base"
                 type="text"
                 placeholder="Filme, série ou celebridade"
               />
               <div className="flex flex-row gap-3">
-                <button className="h-[43px] p-3 border-solid">
+                <button className="p-3 border-solid">
                   <select
-                    className="bg-transparent"
+                    className="bg-neutral-700 w-24 h-[43px]"
                     name="options"
                     id="options"
                   >
@@ -77,7 +78,11 @@ const Header = () => {
             aria-expanded={openDropdownMenu}
             className="relative"
           >
-            <img src={userIcon} alt="userIcon" />
+            <img
+              src={userIcon}
+              alt="userIcon"
+              className="w-12 h-12 max-w-none max-h-none"
+            />
             {openDropdownMenu && <DropdownMenuUser />}
           </button>
         </div>
@@ -110,7 +115,7 @@ const Header = () => {
           </nav>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

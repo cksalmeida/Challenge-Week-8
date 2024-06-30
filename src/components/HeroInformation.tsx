@@ -9,6 +9,7 @@ import ButtonDefault from "./ButtonDefault";
 import ButtonRounded from "./ButtonRounded";
 import { season, detail, collectionParts } from "../types/Tmdb";
 import Tooltip from "./Tooltip";
+import "./heroInformation.css";
 
 interface Props {
   detail: detail | null;
@@ -88,8 +89,8 @@ const HeroInformation = ({ detail, id }: Props) => {
     : `${verifyMoviesOrTvs()}/${detail?.id}`;
 
   return (
-    <div className="font-workSans text-white flex flex-col items-start mx-4 md:mx-0 md:max-w-3xl md:ml-20 mb-6 md:mb-0 gap-8 z-20 relative">
-      <div className="text-neutral-100 flex flex-col gap-5">
+    <div className="flex flex-col items-start gap-8 z-20 w-full px-4 pb-6 md:px-[80px] font-workSans text-white heroInformation">
+      <div className="text-neutral-100 flex flex-col gap-5 max-w-[60ch]">
         <h1 className="text-44px font-bold">
           {detail ? (detail.title ? detail.title : detail.name) : null}
         </h1>
@@ -116,7 +117,7 @@ const HeroInformation = ({ detail, id }: Props) => {
             <ButtonDefault
               img={infoVector}
               alt="Info"
-              className="bg-none text-white border border-white hover:bg-neutral-200 hover:text-neutral-600 hover:border-none"
+              className="bg-none text-white border border-white hover:bg-neutral-200 hover:text-neutral-600 hover:border-opacity-0"
             >
               MAIS INFORMAÇÕES
             </ButtonDefault>

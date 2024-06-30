@@ -14,6 +14,7 @@ import HomeCarousels from "../components/HomeCarousels";
 import Collection from "../components/Collection";
 import Account from "./Account";
 import VideoPlayer from "./VideoPlayer";
+import Search from "./Search";
 
 const Home = () => {
   const [randomTrend, setRandomTrend] = useState<detail | null>(null);
@@ -65,6 +66,7 @@ const Home = () => {
         <Route path="colecoes/:id" element={<Collection />} />
         <Route path="conta" element={<Account />} />
         <Route path="player" element={<VideoPlayer />} />
+        <Route path="buscar/*" element={<Search />} />
       </Routes>
     </div>
   );

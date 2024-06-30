@@ -472,7 +472,33 @@ const getWatchlistTv = async (sessionId: string) => {
   }
 };
 
+const fetchAxiosSearchMovies = {
+  method: "GET",
+  url: "https://api.themoviedb.org/3/search/movie",
+  params: {
+    query: "",
+    include_adult: "false",
+    language: "pt-BR",
+    page: "1",
+  },
+  headers: {
+    accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMGRjODU4NmFhZDU5M2ExYWJjYjA3ZmJiZjIyYmVhZiIsIm5iZiI6MTcxOTI1NjQyOS4wMTg5MzEsInN1YiI6IjY2NzljMmZhMjYyOTk0YzJlZTljODAwZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.jEL_TVMFQRJrxInCvmdZdZCZdTPHLzXyTvT697BYppg",
+  },
+};
+
+axios
+  .request(fetchAxiosSearchMovies)
+  .then(function (response) {
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    console.error(error);
+  });
+
 export {
+  fetchAxiosSearchMovies,
   fetchRandomMovieTvDetails,
   fetchSearchMovies,
   fetchSearchCollection,
