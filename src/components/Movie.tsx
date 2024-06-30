@@ -33,7 +33,7 @@ const Movie = () => {
 
   return (
     <div>
-      <Hero detail={movieClicked || randomTrendMovie} />
+      <Hero detail={movieClicked || randomTrendMovie} id={id ? id : null} />
       <Footer />
     </div>
   );

@@ -3,9 +3,10 @@ import HeroInformation from "./HeroInformation";
 
 interface Props {
   detail: detail | null;
+  id?: string | null;
 }
 
-const Hero = ({ detail }: Props) => {
+const Hero = ({ detail, id }: Props) => {
   return (
     <section className="relative h-screen overflow-hidden flex items-end md:items-center">
       <div className="bg-top-gradient absolute top-0 left-0 right-0 height-15px z-10"></div>
@@ -17,7 +18,7 @@ const Hero = ({ detail }: Props) => {
           backgroundImage: `url(https://image.tmdb.org/t/p/original/${detail?.backdrop_path})`,
         }}
       />
-      <HeroInformation detail={detail} />
+      <HeroInformation detail={detail} id={id ? id : null} />
     </section>
   );
 };
