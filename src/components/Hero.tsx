@@ -4,9 +4,10 @@ import HeroInformation from "./HeroInformation";
 
 interface Props {
   detail: detail | null;
+  id?: string | null;
 }
 
-const Hero = ({ detail }: Props) => {
+const Hero = ({ detail, id }: Props) => {
   return (
     <section className="relative overflow-hidden flex flex-col justify-between">
       <Header />
@@ -17,7 +18,7 @@ const Hero = ({ detail }: Props) => {
         }}
       />
       <div className="relative z-10 flex flex-col justify-end md:justify-end">
-        <HeroInformation detail={detail} />
+        <HeroInformation detail={detail} id={id ? id : null} />
       </div>
     </section>
   );

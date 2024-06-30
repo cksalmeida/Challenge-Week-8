@@ -23,7 +23,7 @@ const Collection = () => {
 
   return (
     <div>
-      <Hero detail={collectionClicked} />
+      <Hero detail={collectionClicked} id={id ? id : null} />
       <Footer />
     </div>
   );
