@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import ButtonDefault from "./ButtonDefault";
 import ButtonRounded from "./ButtonRounded";
 import { season, detail, collectionParts } from "../types/Tmdb";
+import Tooltip from "./Tooltip"
 
 interface Props {
   detail: detail | null;
@@ -109,12 +110,16 @@ const HeroInformation = ({ detail }: Props) => {
           ""
         )}
         <div className="flex gap-6">
+          <Tooltip text='Adicionar à "Assistir mais tarde'>
           <ButtonRounded img={addVector} hoverImg={addHoverVector} alt="Add" />
+          </Tooltip>
+          <Tooltip text='Adicionar aos Favoritos'>
           <ButtonRounded
             img={starVector}
             hoverImg={starHoverVector}
             alt="Favorite"
           />
+          </Tooltip>
         </div>
       </div>
     </div>
