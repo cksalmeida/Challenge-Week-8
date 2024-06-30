@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import addUserIcon from "../assets/icons/add_user_icon.svg";
 import dummyUser from "../assets/user_dummy.svg";
 import dummyUser2 from "../assets/user_dummy2.svg";
@@ -28,7 +29,9 @@ const DropdownMenuUser = () => {
         <li className="text-primary-100 font-bold">Minha assinatura</li>
         <li>Minha conta</li>
         <li>Ajuda</li>
-        <li>Sair</li>
+        <li>
+          <Link to={"/"}>Sair</Link>
+        </li>
       </ul>
     </div>
   );
