@@ -7,6 +7,7 @@ import {
 } from "../apiService/apiService";
 import Hero from "./Hero";
 import { useParams } from "react-router-dom";
+import MovieCarousels from "./MovieCarousels";
 
 const Movie = () => {
   const [movieClicked, setMovieClicked] = useState<detail | null>(null);
@@ -34,6 +35,7 @@ const Movie = () => {
   return (
     <div>
       <Hero detail={movieClicked || randomTrendMovie} id={id ? id : null} />
+      {id ? null : <MovieCarousels />}
       <Footer />
     </div>
   );

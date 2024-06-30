@@ -35,6 +35,7 @@ const Tv = () => {
   return (
     <div>
       <Hero detail={tvClicked || randomTrendTv} id={id ? id : null} />
+      {id ? null : <TvCarousels />}
       <Footer />
     </div>
   );

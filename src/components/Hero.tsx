@@ -1,6 +1,7 @@
 import { detail } from "../types/Tmdb";
 import Header from "./Header";
 import HeroInformation from "./HeroInformation";
+import "./heroInformation.css";
 
 interface Props {
   detail: detail | null;
@@ -9,16 +10,21 @@ interface Props {
 
 const Hero = ({ detail, id }: Props) => {
   return (
-    <section className="relative overflow-hidden flex flex-col justify-between">
-      <Header />
+    <section>
       <div
-        className="bg-cover bg-no-repeat bg-center absolute top-0 left-0 right-0 bottom-0"
+        className="relative overflow-hidden flex flex-col justify-between h-screen bg-cover bg-no-repeat bg-center "
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original/${detail?.backdrop_path})`,
         }}
-      />
-      <div className="relative z-10 flex flex-col justify-end md:justify-end">
-        <HeroInformation detail={detail} id={id ? id : null} />
+      >
+        <div className="heroInformation h-screen">
+          <div className="flex flex-col justify-between min-h-[70%]">
+            <Header />
+            <div className="relative z-10 flex flex-col md:max-w-[50%]">
+              <HeroInformation detail={detail} id={id ? id : null} />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
