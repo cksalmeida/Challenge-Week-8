@@ -11,6 +11,8 @@ import Movie from "../components/Movie";
 import Tv from "../components/Tv";
 import Celebrities from "../components/Celebrities";
 import HomeCarousels from "../components/HomeCarousels";
+import TvCarousels from "../components/TvCarousels";
+import MovieCarousels from "../components/MovieCarousels";
 import Collection from "../components/Collection";
 import Account from "./Account";
 import VideoPlayer from "./VideoPlayer";
@@ -60,8 +62,40 @@ const Home = () => {
             </>
           }
         />
-        <Route path="series/:id?" element={<Tv />} />
-        <Route path="filmes/:id?" element={<Movie />} />
+        <Route
+          path="/series"
+          element={
+            <>
+              <Hero detail={randomTrend} />
+              <TvCarousels/>
+            </>
+          }
+        />
+        <Route
+          path="series/:id"
+          element={
+            <>
+              <Tv />
+            </>
+          }
+        />
+        <Route
+          path="/filmes"
+          element={
+            <>
+              <Hero detail={randomTrend} />
+              <MovieCarousels/>
+            </>
+          }
+        />
+        <Route
+          path="filmes/:id"
+          element={
+            <>
+              <Movie />
+            </>
+          }
+        />
         <Route path="celebridades/:id?" element={<Celebrities />} />
         <Route path="colecoes/:id" element={<Collection />} />
         <Route path="conta" element={<Account />} />

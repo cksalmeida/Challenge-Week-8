@@ -7,6 +7,7 @@ import {
 } from "../apiService/apiService";
 import { detail } from "../types/Tmdb";
 import { useParams } from "react-router-dom";
+import TvCarousels from "./TvCarousels";
 
 const Tv = () => {
   const [randomTrendTv, setRandomTrendTv] = useState<detail | null>(null);

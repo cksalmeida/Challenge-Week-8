@@ -225,6 +225,117 @@ const fetchSearchCollection = async (query: string) => {
   }
 };
 
+const fetchAiringTodayTVShows = async () => {
+  try {
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/tv/airing_today",
+      {
+        params: {
+          language: "pt-BR",
+          page: 1,
+        },
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Airing Today TV shows:", error);
+  }
+};
+
+const fetchOnTheAirTVShows = async () => {
+  try {
+    const response = await axios.get("https://api.themoviedb.org/3/tv/on_the_air", {
+      params: {
+        language: "pt-BR",
+        page: 1,
+      },
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching On The Air TV shows:", error);
+  }
+};
+
+const fetchTopRatedTVShows = async () => {
+  try {
+    const response = await axios.get("https://api.themoviedb.org/3/tv/top_rated", {
+      params: {
+        language: "pt-BR",
+        page: 1,
+      },
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Top Rated TV shows:", error);
+  }
+};
+
+const fetchNowPlayingMovies = async () => {
+  try {
+    const response = await axios.get("https://api.themoviedb.org/3/movie/now_playing", {
+      params: {
+        language: "pt-BR",
+        page: 1,
+      },
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Now Playing Movies:", error);
+  }
+};
+
+const fetchTopRatedMovies = async () => {
+  try {
+    const response = await axios.get("https://api.themoviedb.org/3/movie/top_rated", {
+      params: {
+        language: "pt-BR",
+        page: 1,
+      },
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Top Rated Movies:", error);
+  }
+};
+
+const fetchUpcomingMovies = async () => {
+  try {
+    const response = await axios.get("https://api.themoviedb.org/3/movie/upcoming", {
+      params: {
+        language: "pt-BR",
+        page: 1,
+      },
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Upcoming Movies:", error);
+  }
+};
+
 const getSessionWithToken = async (requestToken: string) => {
   console.log(requestToken);
   try {
@@ -517,4 +628,10 @@ export {
   getFavoriteTVShows,
   getWatchlistMovies,
   getWatchlistTv,
+  fetchAiringTodayTVShows,
+  fetchOnTheAirTVShows,
+  fetchTopRatedTVShows,
+  fetchNowPlayingMovies,
+  fetchTopRatedMovies,
+  fetchUpcomingMovies,
 };
