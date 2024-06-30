@@ -1,9 +1,3 @@
-export interface ApiResponse {
-  expires_at: string;
-  request_token: string;
-  success: boolean;
-}
-
 export interface detail {
   adult?: boolean;
   backdrop_path: string;

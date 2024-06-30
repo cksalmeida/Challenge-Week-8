@@ -9,21 +9,21 @@ import Hero from "./Hero";
 import { useParams } from "react-router-dom";
 
 const Movie = () => {
-  const [randomTrendMovie, setRandomTrendMovie] = useState<detail | null>(null);
   const [movieClicked, setMovieClicked] = useState<detail | null>(null);
+  const [randomTrendMovie, setRandomTrendMovie] = useState<detail | null>(null);
   const { id } = useParams<{ id: string }>();
 
-  const fetchRandomTrendMovie = async () => {
-    const random = await fetchRandomMovieTvDetails("randomMovieTrending");
-    setRandomTrendMovie(random ? random : null);
-  };
-
-  const fetchMovieDetails = async () => {
-    const movie = await fetchMoviesDetailsById(id ? id : "");
-    setMovieClicked(movie);
-  };
-
   useEffect(() => {
+    const fetchMovieDetails = async () => {
+      const movie = await fetchMoviesDetailsById(id!);
+      setMovieClicked(movie);
+    };
+
+    const fetchRandomTrendMovie = async () => {
+      const random = await fetchRandomMovieTvDetails("randomMovieTrending");
+      setRandomTrendMovie(random ? random : null);
+    };
+
     if (id) {
       fetchMovieDetails();
     } else {
@@ -33,7 +33,7 @@ const Movie = () => {
 
   return (
     <div>
-      <Hero detail={movieClicked || randomTrendMovie} />
+      <Hero detail={movieClicked || randomTrendMovie} id={id ? id : null} />
       <Footer />
     </div>
   );

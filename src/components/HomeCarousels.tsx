@@ -4,37 +4,39 @@ import {
   fetchPopularTVShows,
   fetchSearchCollection,
 } from "../apiService/apiService";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 const HomeCarousels = () => {
   const [listColections, setListColections] = useState([]);
   const [listPopularMovies, setListPopularMovies] = useState([]);
   const [listPopularTvs, setListPopularTvs] = useState([]);
 
-  const fetchColectionsItems = async (query: string) => {
+  const fetchColectionsItems = useCallback(async (query: string) => {
     let list = await fetchSearchCollection(query);
-    list = list.filter((item: object) => item.poster_path !== null);
+    list = list.filter(
+      (item: { poster_path: string | null }) => item.poster_path !== null
+    );
     setListColections(list);
-  };
+  }, []);
 
-  const fetchTvItems = async () => {
+  const fetchTvItems = useCallback(async () => {
     const list = await fetchPopularTVShows();
     setListPopularTvs(list);
-  };
+  }, []);
 
-  const fetchMoviesItems = async () => {
+  const fetchMoviesItems = useCallback(async () => {
     const list = await fetchPopularMovies();
     setListPopularMovies(list);
-  };
+  }, []);
 
   useEffect(() => {
     fetchColectionsItems("Horror");
     fetchTvItems();
     fetchMoviesItems();
-  }, []);
+  }, [fetchColectionsItems, fetchTvItems, fetchMoviesItems]);
 
   return (
-    <div>
+    <div className="pb-14 pl-4 md:pl-20 flex flex-col gap-14">
       <Carrossel
         query={listColections}
         page="colecoes"

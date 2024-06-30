@@ -4,7 +4,7 @@ import "./dropdownMenuUser.css";
 
 const DropdownMenuUser = () => {
   return (
-    <div className="flex flex-col gap-6 dropDownUser font-workSans text-black">
+    <div className="flex flex-col gap-6 dropDownUser font-workSans text-white bg-neutral-700">
       <div className="flex flex-col gap-4">
         <button className="flex flex-row items-center gap-4">
           <img src={dummyUser} alt="dummyUser" />

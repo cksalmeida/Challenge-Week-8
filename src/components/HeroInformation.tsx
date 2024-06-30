@@ -4,15 +4,20 @@ import addVector from "../assets/addVector.svg";
 import addHoverVector from "../assets/addHoverVector.svg";
 import starVector from "../assets/starVector.svg";
 import starHoverVector from "../assets/starHoverVector.svg";
+import { Link } from "react-router-dom";
 import ButtonDefault from "./ButtonDefault";
 import ButtonRounded from "./ButtonRounded";
 import { season, detail, collectionParts } from "../types/Tmdb";
+import Tooltip from "./Tooltip";
+import "./heroInformation.css";
 
 interface Props {
   detail: detail | null;
+  id: string | null;
 }
-const HeroInformation = ({ detail }: Props) => {
-  console.log(detail);
+const HeroInformation = ({ detail, id }: Props) => {
+  const sessionId = localStorage.getItem("session_Id");
+
   const getYear = (dateString: string | undefined) => {
     return dateString ? new Date(dateString).getFullYear() : null;
   };
@@ -70,9 +75,22 @@ const HeroInformation = ({ detail }: Props) => {
     return null;
   };
 
+  const verifyMoviesOrTvs = (): string => {
+    return detail?.runtime ? "filmes" : "series";
+  };
+
+  const isHomePage = () => {
+    const currentPath = window.location.pathname;
+    return currentPath.includes(`home/${verifyMoviesOrTvs()}`);
+  };
+
+  const toPath = isHomePage()
+    ? `${detail?.id}`
+    : `${verifyMoviesOrTvs()}/${detail?.id}`;
+
   return (
-    <div className="font-workSans text-white flex flex-col items-start mx-4 md:mx-0 md:max-w-3xl md:ml-20 mb-6 md:mb-0 gap-8 z-20 relative">
-      <div className="text-neutral-100 flex flex-col gap-5">
+    <div className="flex flex-col items-start gap-8 z-20 w-full px-4 pb-6 md:px-[80px] font-workSans text-white heroInformation">
+      <div className="text-neutral-100 flex flex-col gap-5 max-w-[60ch]">
         <h1 className="text-44px font-bold">
           {detail ? (detail.title ? detail.title : detail.name) : null}
         </h1>
@@ -80,38 +98,55 @@ const HeroInformation = ({ detail }: Props) => {
           {releaseYear} • {renderRuntimeOrSeasons(detail)}
         </p>
         <p className="text-xs font-normal">{renderGenres()}</p>
-        <p className="font-normal text-xl">{detail ? detail.overview : null}</p>
       </div>
+      <p className={`font-normal text-xl ${id ? "order-last" : ""}`}>
+        {detail ? detail.overview : null}
+      </p>
       <div className="flex flex-col md:flex-row gap-6 items-start">
-        <ButtonDefault
-          img={playVector}
-          alt="Play"
-          className="bg-white text-neutral-600 hover:bg-neutral-200"
-        >
-          VER AGORA
-        </ButtonDefault>
-        <ButtonDefault
-          img={infoVector}
-          alt="Info"
-          className="bg-none text-white border border-white hover:bg-neutral-200 hover:text-neutral-600 hover:border-none"
-          onClick={() => console.log("Button clicked!")}
-        >
-          MAIS INFORMAÇÕES
-        </ButtonDefault>
-        {false! ? (
-          <ButtonDefault className="bg-none text-white border border-white">
+        <Link to="player">
+          <ButtonDefault
+            img={playVector}
+            alt="Play"
+            className="bg-white text-neutral-600 hover:bg-neutral-200"
+          >
+            VER AGORA
+          </ButtonDefault>
+        </Link>
+        {!id ? (
+          <Link to={toPath}>
+            <ButtonDefault
+              img={infoVector}
+              alt="Info"
+              className="bg-none text-white border border-white hover:bg-neutral-200 hover:text-neutral-600 hover:border-opacity-0"
+            >
+              MAIS INFORMAÇÕES
+            </ButtonDefault>
+          </Link>
+        ) : null}
+        {id ? (
+          <ButtonDefault className="bg-none text-white border border-white hover:bg-neutral-200 hover:text-neutral-600 hover:border-none">
             TRAILER
           </ButtonDefault>
-        ) : (
-          ""
-        )}
+        ) : null}
         <div className="flex gap-6">
-          <ButtonRounded img={addVector} hoverImg={addHoverVector} alt="Add" />
-          <ButtonRounded
-            img={starVector}
-            hoverImg={starHoverVector}
-            alt="Favorite"
-          />
+          <Tooltip text='Adicionar à "Assistir mais tarde"'>
+            <ButtonRounded
+              img={addVector}
+              hoverImg={addHoverVector}
+              alt="Add"
+              detail={detail}
+              sessionId={sessionId}
+            />
+          </Tooltip>
+          <Tooltip text="Adicionar aos Favoritos">
+            <ButtonRounded
+              img={starVector}
+              hoverImg={starHoverVector}
+              alt="Favorite"
+              detail={detail}
+              sessionId={sessionId}
+            />
+          </Tooltip>
         </div>
       </div>
     </div>

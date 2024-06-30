@@ -2,23 +2,28 @@ import axios from "axios";
 import { detail } from "../types/Tmdb";
 
 const token: string = import.meta.env.VITE_TMDB_API_KEY;
+const accountId: string = import.meta.env.VITE_TMDB_ACCOUNT_ID;
 
 const fetchRandomMovieTvDetails = async (
   detail: string
 ): Promise<detail | undefined> => {
   try {
     let detailResults;
+    let movie = false;
+    let tv = false;
     if (detail === "randomTrending") {
       detailResults = await fetchTrending();
     } else if (detail === "randomMovieTrending") {
       detailResults = await fetchPopularMovies();
+      movie = true;
     } else if (detail === "randomTvTrending") {
       detailResults = await fetchPopularTVShows();
+      tv = true;
     }
     const randomIndex = Math.floor(Math.random() * detailResults.length);
     const randomItem = detailResults[randomIndex];
 
-    if (randomItem.media_type === "movie") {
+    if (randomItem.media_type === "movie" || movie) {
       const movieResponse = await axios.get(
         `https://api.themoviedb.org/3/movie/${randomItem.id}`,
         {
@@ -32,7 +37,7 @@ const fetchRandomMovieTvDetails = async (
         }
       );
       return movieResponse.data;
-    } else if (randomItem.media_type === "tv") {
+    } else if (randomItem.media_type === "tv" || tv) {
       const tvResponse = await axios.get(
         `https://api.themoviedb.org/3/tv/${randomItem.id}`,
         {
@@ -167,7 +172,6 @@ const fetchPopularTVShows = async () => {
         },
       }
     );
-    console.log(response.data.results);
     return response.data.results;
   } catch (error) {
     console.error("Error fetching Popular TV shows:", error);
@@ -332,7 +336,280 @@ const fetchUpcomingMovies = async () => {
   }
 };
 
+const getSessionWithToken = async (requestToken: string) => {
+  console.log(requestToken);
+  try {
+    const url = "https://api.themoviedb.org/3/authentication/session/new";
+
+    const headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+
+    const data = {
+      request_token: requestToken,
+    };
+
+    const response = await axios.post(url, data, { headers });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching session with token:", requestToken, error);
+    throw error;
+  }
+};
+
+const addToFavorites = async (
+  sessionId: string,
+  mediaType: string,
+  mediaId: number
+) => {
+  const url = `https://api.themoviedb.org/3/account/${accountId}/favorite?session_id=${sessionId}`;
+
+  const body = {
+    media_type: mediaType,
+    media_id: mediaId,
+    favorite: true,
+  };
+
+  try {
+    const response = await axios.post(url, body, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error adding to favorites:", error);
+  }
+};
+
+const removeFavorites = async (
+  sessionId: string,
+  mediaType: string,
+  mediaId: number
+) => {
+  const url = `https://api.themoviedb.org/3/account/${accountId}/favorite?session_id=${sessionId}`;
+
+  const body = {
+    media_type: mediaType,
+    media_id: mediaId,
+    favorite: false,
+  };
+
+  try {
+    const response = await axios.post(url, body, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error adding to favorites:", error);
+  }
+};
+
+const addToWatchlist = async (
+  sessionId: string,
+  mediaType: string,
+  mediaId: number
+) => {
+  const url = `https://api.themoviedb.org/3/account/21347247/watchlist?session_id=${sessionId}`;
+
+  const body = {
+    media_type: mediaType,
+    media_id: mediaId,
+    watchlist: true,
+  };
+
+  try {
+    const response = await axios.post(url, body, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error adding to watchlist:", error);
+  }
+};
+
+const removeWatchlist = async (
+  sessionId: string,
+  mediaType: string,
+  mediaId: number
+) => {
+  const url = `https://api.themoviedb.org/3/account/21347247/watchlist?session_id=${sessionId}`;
+
+  const body = {
+    media_type: mediaType,
+    media_id: mediaId,
+    watchlist: false,
+  };
+
+  try {
+    const response = await axios.post(url, body, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error adding to watchlist:", error);
+  }
+};
+
+const getGuestSession = async () => {
+  try {
+    const url = "https://api.themoviedb.org/3/authentication/guest_session/new";
+
+    const headers = {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+
+    const response = await axios.get(url, { headers });
+    return response.data.guest_session_id;
+  } catch (error) {
+    console.error("Error fetching guest session:", error);
+    throw error;
+  }
+};
+
+const getFavoriteMovies = async (sessionId: string) => {
+  const options = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/account/${accountId}/favorite/movies`,
+    params: {
+      language: "pt-BR",
+      page: "1",
+      session_id: sessionId,
+      sort_by: "created_at.asc",
+    },
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(options);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching favorite movies:", error);
+  }
+};
+
+const getFavoriteTVShows = async (sessionId: string) => {
+  const options = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/account/${accountId}/favorite/tv`,
+    params: {
+      language: "pt-BR",
+      page: "1",
+      session_id: sessionId,
+      sort_by: "created_at.asc",
+    },
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(options);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching favorite TV shows:", error);
+    throw error;
+  }
+};
+
+const getWatchlistMovies = async (sessionId: string) => {
+  const options = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/account/${accountId}/watchlist/movies`,
+    params: {
+      language: "pt-BR",
+      page: "1",
+      sort_by: "created_at.asc",
+      session_id: sessionId,
+    },
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(options);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching watchlist movies:", error);
+    throw error;
+  }
+};
+
+const getWatchlistTv = async (sessionId: string) => {
+  const options = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/account/${accountId}/watchlist/tv`,
+    params: {
+      language: "pt-BR",
+      page: "1",
+      sort_by: "created_at.asc",
+      session_id: sessionId,
+    },
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(options);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching watchlist TV shows:", error);
+    throw error;
+  }
+};
+
+const fetchAxiosSearchMovies = {
+  method: "GET",
+  url: "https://api.themoviedb.org/3/search/movie",
+  params: {
+    query: "",
+    include_adult: "false",
+    language: "pt-BR",
+    page: "1",
+  },
+  headers: {
+    accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMGRjODU4NmFhZDU5M2ExYWJjYjA3ZmJiZjIyYmVhZiIsIm5iZiI6MTcxOTI1NjQyOS4wMTg5MzEsInN1YiI6IjY2NzljMmZhMjYyOTk0YzJlZTljODAwZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.jEL_TVMFQRJrxInCvmdZdZCZdTPHLzXyTvT697BYppg",
+  },
+};
+
+axios
+  .request(fetchAxiosSearchMovies)
+  .then(function (response) {
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    console.error(error);
+  });
+
 export {
+  fetchAxiosSearchMovies,
   fetchRandomMovieTvDetails,
   fetchSearchMovies,
   fetchSearchCollection,
@@ -341,6 +618,16 @@ export {
   fetchMoviesDetailsById,
   fetchTvDetailsById,
   fetchColletionDetailsById,
+  getSessionWithToken,
+  addToFavorites,
+  removeFavorites,
+  addToWatchlist,
+  removeWatchlist,
+  getGuestSession,
+  getFavoriteMovies,
+  getFavoriteTVShows,
+  getWatchlistMovies,
+  getWatchlistTv,
   fetchAiringTodayTVShows,
   fetchOnTheAirTVShows,
   fetchTopRatedTVShows,

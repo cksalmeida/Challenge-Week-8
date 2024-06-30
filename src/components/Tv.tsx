@@ -14,17 +14,17 @@ const Tv = () => {
   const [tvClicked, setTvClicked] = useState<detail | null>(null);
   const { id } = useParams<{ id: string }>();
 
-  const fetchRandomTrendTv = async () => {
-    const random = await fetchRandomMovieTvDetails("randomTvTrending");
-    setRandomTrendTv(random ? random : null);
-  };
-
-  const fetchTvDetails = async () => {
-    const movie = await fetchTvDetailsById(id ? id : "");
-    setTvClicked(movie);
-  };
-
   useEffect(() => {
+    const fetchRandomTrendTv = async () => {
+      const random = await fetchRandomMovieTvDetails("randomTvTrending");
+      setRandomTrendTv(random ? random : null);
+    };
+
+    const fetchTvDetails = async () => {
+      const movie = await fetchTvDetailsById(id ? id : "");
+      setTvClicked(movie);
+    };
+
     if (id) {
       fetchTvDetails();
     } else {
@@ -34,7 +34,7 @@ const Tv = () => {
 
   return (
     <div>
-      <Hero detail={tvClicked || randomTrendTv} />
+      <Hero detail={tvClicked || randomTrendTv} id={id ? id : null} />
       <Footer />
     </div>
   );
