@@ -1,0 +1,27 @@
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.movie-item {
+  text-align: center;
+}
+
+.movie-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-info {
+  height: 28px;
+  opacity: 1;
+  font-family: Work Sans, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 28.15px;
+  text-align: left;
+  margin-bottom: 16px;
+}

@@ -4,10 +4,10 @@ export interface ApiResponse {
   success: boolean;
 }
 
-export interface trending {
+export interface detail {
   adult?: boolean;
-  backdrop_path?: string;
-  belongs_to_collection?: undefined;
+  backdrop_path: string;
+  parts?: collectionParts[];
   budget?: number;
   created_by?: {
     credit_id?: string;
@@ -116,4 +116,48 @@ export interface season {
   overview?: string;
   poster_path?: string | null;
   season_number?: number;
+}
+
+export interface collection {
+  id?: number;
+  name?: string;
+  overview?: string;
+  poster_path?: string | null;
+  backdrop_path?: string;
+  parts?: collectionParts[];
+}
+
+export interface collectionParts {
+  backdrop_path?: string | null;
+  id?: number;
+  title?: string;
+  original_title?: string;
+  overview?: string;
+  poster_path?: string | null;
+  media_type?: string;
+  adult?: boolean;
+  original_language?: string;
+  genre_ids?: number[];
+  popularity?: number;
+  release_date?: string;
+  video?: boolean;
+  vote_average?: number;
+  vote_count?: number;
+}
+
+export interface Movie {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
 }

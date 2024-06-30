@@ -4,4 +4,5 @@ export interface buttonDefaultProps {
   alt?: string;
   children?: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 }

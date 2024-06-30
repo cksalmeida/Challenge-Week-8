@@ -6,37 +6,45 @@ import starVector from "../assets/starVector.svg";
 import starHoverVector from "../assets/starHoverVector.svg";
 import ButtonDefault from "./ButtonDefault";
 import ButtonRounded from "./ButtonRounded";
-import { season, trending } from "../types/Tmdb";
+import { season, detail, collectionParts } from "../types/Tmdb";
+import "./heroInformation.css";
 
 interface Props {
-  trending: trending | null;
+  detail: detail | null;
 }
-const HeroInformation = ({ trending }: Props) => {
+const HeroInformation = ({ detail }: Props) => {
+  console.log(detail);
   const getYear = (dateString: string | undefined) => {
     return dateString ? new Date(dateString).getFullYear() : null;
   };
 
-  const getLastSeason = (seasons: season[] | undefined) => {
+  const getFirstSeason = (seasons: season[] | undefined) => {
     if (seasons && seasons.length > 0) {
-      return seasons[seasons.length - 1];
+      return seasons[0];
     }
     return null;
   };
 
-  const getLastSeasonYear = (seasons: season[] | undefined) => {
-    const lastSeason = getLastSeason(seasons);
-    return lastSeason ? getYear(lastSeason.air_date) : null;
+  const getFirstSeasonYear = (seasons: season[] | undefined) => {
+    const firstSeason = getFirstSeason(seasons);
+    return firstSeason ? getYear(firstSeason.air_date) : null;
   };
 
-  const releaseYear = trending
-    ? getYear(trending.release_date) ||
-      getYear(trending.first_air_date) ||
-      getLastSeasonYear(trending.seasons)
+  const getFirstYearFromCollection = (parts: collectionParts[] | undefined) => {
+    if (!parts || parts.length === 0) return null;
+    return getYear(parts[0].release_date);
+  };
+
+  const releaseYear = detail
+    ? getYear(detail.release_date) ||
+      getYear(detail.first_air_date) ||
+      getFirstSeasonYear(detail.seasons) ||
+      getFirstYearFromCollection(detail.parts)
     : null;
 
   const renderGenres = () => {
-    if (trending && trending.genres) {
-      return trending.genres.map((genre) => genre.name).join(", ");
+    if (detail && detail.genres) {
+      return detail.genres.map((genre) => genre.name).join(", ");
     }
     return null;
   };
@@ -47,28 +55,33 @@ const HeroInformation = ({ trending }: Props) => {
     return `${hours} h ${mins} min`;
   };
 
+  const renderRuntimeOrSeasons = (detail: detail | null) => {
+    if (!detail) return null;
+    if (detail.runtime) return convertMinutesToHours(detail.runtime);
+    if (detail.number_of_seasons) {
+      return detail.number_of_seasons > 1
+        ? `${detail.number_of_seasons} Temporadas`
+        : `${detail.number_of_seasons} Temporada`;
+    }
+    if (detail.parts) {
+      return detail.parts.length > 1
+        ? `${detail.parts.length} Episodios`
+        : `${detail.parts.length} Episodio`;
+    }
+    return null;
+  };
+
   return (
-    <div className="min-h-[665px] w-full px-4 pb-6 md:px-24 font-workSans text-white flex flex-col items-start gap-8 z-20 bg-gradient-to-t from-indigo-950 to-[rgba(0,0,0,0)]">
+    <div className="flex flex-col items-start gap-8 z-20 w-full px-4 pb-6 md:px-[80px] font-workSans text-white heroInformation">
       <div className="text-neutral-100 flex flex-col gap-5 max-w-[60ch]">
         <h1 className="text-44px font-bold">
-          {trending ? (trending.title ? trending.title : trending.name) : null}
+          {detail ? (detail.title ? detail.title : detail.name) : null}
         </h1>
         <p className="text-base font-normal">
-          {releaseYear} •{" "}
-          {trending
-            ? trending.runtime
-              ? convertMinutesToHours(trending.runtime)
-              : trending.number_of_seasons
-              ? trending.number_of_seasons > 1
-                ? `${trending.number_of_seasons} Temporadas`
-                : `${trending.number_of_seasons} Temporada`
-              : null
-            : null}
+          {releaseYear} • {renderRuntimeOrSeasons(detail)}
         </p>
         <p className="text-xs font-normal">{renderGenres()}</p>
-        <p className="font-normal text-xl">
-          {trending ? trending.overview : null}
-        </p>
+        <p className="font-normal text-xl">{detail ? detail.overview : null}</p>
       </div>
       <div className="flex flex-col md:flex-row gap-6 items-start">
         <ButtonDefault
@@ -82,6 +95,7 @@ const HeroInformation = ({ trending }: Props) => {
           img={infoVector}
           alt="Info"
           className="bg-none text-white border border-white hover:bg-neutral-200 hover:text-neutral-600 hover:border-opacity-0"
+          onClick={() => console.log("Button clicked!")}
         >
           MAIS INFORMAÇÕES
         </ButtonDefault>

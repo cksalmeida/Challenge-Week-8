@@ -19,7 +19,6 @@ const LoginWithTMDB: FunctionComponent<Props> = ({ children }) => {
         },
       })
       .then((response) => {
-        console.log(response);
         setRequestTk(response.data);
       })
       .catch((error) => {
