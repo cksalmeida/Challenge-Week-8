@@ -24,7 +24,6 @@ const fetchRandomMovieTvDetails = async (
     const randomItem = detailResults[randomIndex];
 
     if (randomItem.media_type === "movie" || movie) {
-      console.log("teste");
       const movieResponse = await axios.get(
         `https://api.themoviedb.org/3/movie/${randomItem.id}`,
         {
@@ -138,7 +137,6 @@ const fetchTrending = async () => {
 };
 
 const fetchPopularMovies = async () => {
-  console.log("first");
   try {
     const movieResponse = await axios.get(
       "https://api.themoviedb.org/3/movie/popular",
@@ -243,7 +241,6 @@ const getSessionWithToken = async (requestToken: string) => {
     };
 
     const response = await axios.post(url, data, { headers });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching session with token:", requestToken, error);
@@ -359,6 +356,122 @@ const removeWatchlist = async (
   }
 };
 
+const getGuestSession = async () => {
+  try {
+    const url = "https://api.themoviedb.org/3/authentication/guest_session/new";
+
+    const headers = {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+
+    const response = await axios.get(url, { headers });
+    return response.data.guest_session_id;
+  } catch (error) {
+    console.error("Error fetching guest session:", error);
+    throw error;
+  }
+};
+
+const getFavoriteMovies = async (sessionId: string) => {
+  const options = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/account/${accountId}/favorite/movies`,
+    params: {
+      language: "pt-BR",
+      page: "1",
+      session_id: sessionId,
+      sort_by: "created_at.asc",
+    },
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(options);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching favorite movies:", error);
+  }
+};
+
+const getFavoriteTVShows = async (sessionId: string) => {
+  const options = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/account/${accountId}/favorite/tv`,
+    params: {
+      language: "pt-BR",
+      page: "1",
+      session_id: sessionId,
+      sort_by: "created_at.asc",
+    },
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(options);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching favorite TV shows:", error);
+    throw error;
+  }
+};
+
+const getWatchlistMovies = async (sessionId: string) => {
+  const options = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/account/${accountId}/watchlist/movies`,
+    params: {
+      language: "pt-BR",
+      page: "1",
+      sort_by: "created_at.asc",
+      session_id: sessionId,
+    },
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(options);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching watchlist movies:", error);
+    throw error;
+  }
+};
+
+const getWatchlistTv = async (sessionId: string) => {
+  const options = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/account/${accountId}/watchlist/tv`,
+    params: {
+      language: "pt-BR",
+      page: "1",
+      sort_by: "created_at.asc",
+      session_id: sessionId,
+    },
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(options);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching watchlist TV shows:", error);
+    throw error;
+  }
+};
+
 export {
   fetchRandomMovieTvDetails,
   fetchSearchMovies,
@@ -373,4 +486,9 @@ export {
   removeFavorites,
   addToWatchlist,
   removeWatchlist,
+  getGuestSession,
+  getFavoriteMovies,
+  getFavoriteTVShows,
+  getWatchlistMovies,
+  getWatchlistTv,
 };
