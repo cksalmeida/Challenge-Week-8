@@ -16,7 +16,7 @@ const Carrossel = ({ query, title, page }: Props) => {
   };
 
   return (
-    <div className="flex flex-col items-start pb-14 pl-4 md:pl-20">
+    <div className="flex flex-col items-start">
       <h4 className="mb-2 font-workSans font-bold text-xl text-white">
         {title}
       </h4>
@@ -49,7 +49,7 @@ const Carrossel = ({ query, title, page }: Props) => {
             <img
               src={`https://image.tmdb.org/t/p/original/${item?.poster_path}`}
               alt={item?.name}
-              className="rounded-lg h-[361px] w-full max-w-xs"
+              className="rounded-lg h-full"
             />
           </SplideSlide>
         ))}
