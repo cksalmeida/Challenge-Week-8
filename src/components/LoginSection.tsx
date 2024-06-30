@@ -1,4 +1,5 @@
 import compass from "../assets/compass.uol.svg";
+import GuestTMDB from "./GuestTMDB";
 import LoginWithTMDB from "./LoginWithTMDB";
 
 const LoginSection = () => {
@@ -17,7 +18,7 @@ bg-opacity-70"
         <span className="text-white text-opacity-60 font-normal">
           Não tem conta?{" "}
         </span>
-        <a href="">Acesse como convidado</a>
+        <GuestTMDB />
       </p>
       <img src={compass} alt="compass" />
     </section>
