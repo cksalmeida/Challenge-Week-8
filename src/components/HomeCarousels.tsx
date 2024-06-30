@@ -5,6 +5,7 @@ import {
   fetchSearchCollection,
 } from "../apiService/apiService";
 import { useEffect, useState } from "react";
+
 const HomeCarousels = () => {
   const [listColections, setListColections] = useState([]);
   const [listPopularMovies, setListPopularMovies] = useState([]);

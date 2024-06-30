@@ -221,6 +221,64 @@ const fetchSearchCollection = async (query: string) => {
   }
 };
 
+const fetchAiringTodayTVShows = async () => {
+  try {
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/tv/airing_today",
+      {
+        params: {
+          language: "pt-BR",
+          page: 1,
+        },
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Airing Today TV shows:", error);
+  }
+};
+
+const fetchOnTheAirTVShows = async () => {
+  try {
+    const response = await axios.get("https://api.themoviedb.org/3/tv/on_the_air", {
+      params: {
+        language: "pt-BR",
+        page: 1,
+      },
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching On The Air TV shows:", error);
+  }
+};
+
+// Função para buscar séries mais bem avaliadas
+const fetchTopRatedTVShows = async () => {
+  try {
+    const response = await axios.get("https://api.themoviedb.org/3/tv/top_rated", {
+      params: {
+        language: "pt-BR",
+        page: 1,
+      },
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Top Rated TV shows:", error);
+  }
+};
+
 export {
   fetchRandomMovieTvDetails,
   fetchSearchMovies,
@@ -230,4 +288,7 @@ export {
   fetchMoviesDetailsById,
   fetchTvDetailsById,
   fetchColletionDetailsById,
+  fetchAiringTodayTVShows,
+  fetchOnTheAirTVShows,
+  fetchTopRatedTVShows,
 };
