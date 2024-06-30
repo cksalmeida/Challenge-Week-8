@@ -20,7 +20,7 @@ const Header = () => {
   };
 
   return (
-    <header className="relative w-full z-[1000] header">
+    <header className="relative w-full z-[20] header">
       <div className="flex flex-col md:flex-row gap-4 py-4 px-8 items-center md:justify-between">
         <img src={compassLogo} alt="compassLogo" className="w-[200px]" />
         <div className="flex flex-row md:order-2 justify-center items-center font-workSans text-base text-white gap-4 w-full md:justify-end">
