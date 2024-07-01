@@ -51,3 +51,10 @@ To get a local copy of the project up and running, follow these steps:
 - React Router DOM
 - TMDB API
 - Splide
+
+## Authors
+
+- [Davi Mathais](https://github.com/cksalmeida)
+- [Lucas Lapazini](https://github.com/lucaslapazini95)
+- [Mariana R. Kemmerich](https://github.com/marianakemmerich)
+- [Vinícius Andrade Gonzato](https://github.com/Vini0100)
