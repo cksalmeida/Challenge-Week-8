@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import Footer from "./Footer";
 import { detail } from "../types/Tmdb";
 import {
   fetchMoviesDetailsById,
   fetchRandomMovieTvDetails,
   fetchSimilarMovies,
 } from "../apiService/apiService";
-import Hero from "./Hero";
 import { useParams } from "react-router-dom";
-import MovieCarousels from "./MovieCarousels";
-import Carrossel from "./Carrossel";
+import Footer from "../components/Footer";
+import Hero from "../components/Hero";
+import MovieCarousels from "../components/MovieCarousels";
+import Carrossel from "../components/Carrossel";
 
 const Movie = () => {
   const [movieClicked, setMovieClicked] = useState<detail | null>(null);

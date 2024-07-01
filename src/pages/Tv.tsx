@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import Footer from "./Footer";
-import Hero from "./Hero";
 import {
   fetchRandomMovieTvDetails,
   fetchSeasonDetails,
@@ -8,8 +6,10 @@ import {
 } from "../apiService/apiService";
 import { detail } from "../types/Tmdb";
 import { useParams } from "react-router-dom";
-import TvCarousels from "./TvCarousels";
 import TvSeasons from "../pages/TvSeasons";
+import TvCarousels from "../components/TvCarousels";
+import Footer from "../components/Footer";
+import Hero from "../components/Hero";
 
 const Tv = () => {
   const [randomTrendTv, setRandomTrendTv] = useState<detail | null>(null);
@@ -38,7 +38,6 @@ const Tv = () => {
     const fetchTvDetailsSeason = async () => {
       const movie = await fetchTvDetailsById(id || "");
       if (numSec && seasonDetail) {
-        console.log("teste");
         const mergedDetails = { ...movie, ...seasonDetail };
         setTvClicked(mergedDetails);
       }
@@ -46,7 +45,6 @@ const Tv = () => {
 
     const fetchSeason = async () => {
       if (id && numSec) {
-        console.log("first");
         const { name, vote_average } = await fetchSeasonDetails(id, numSec);
         setSeasonDetail({ name, vote_average });
       }

@@ -7,14 +7,14 @@ import {
 import { detail } from "../types/Tmdb";
 import Loading from "../components/Loading";
 import { Route, Routes } from "react-router-dom";
-import Movie from "../components/Movie";
-import Tv from "../components/Tv";
 import Celebrities from "../components/Celebrities";
 import HomeCarousels from "../components/HomeCarousels";
 import Collection from "../components/Collection";
 import Account from "./Account";
 import VideoPlayer from "./VideoPlayer";
 import Search from "./Search";
+import Movie from "./Movie";
+import Tv from "./Tv";
 
 const Home = () => {
   const [randomTrend, setRandomTrend] = useState<detail | null>(null);

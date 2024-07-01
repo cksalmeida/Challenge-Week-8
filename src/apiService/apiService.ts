@@ -701,6 +701,47 @@ const fetchSimilarMovies = async (movieId: string) => {
   }
 };
 
+const fetchPopularActors = async () => {
+  try {
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/person/popular",
+      {
+        params: {
+          language: "pt-BR",
+          page: 1,
+        },
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching popular actors:", error);
+  }
+};
+
+const fetchActorMovies = async (actorId: string) => {
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/person/${actorId}/movie_credits`,
+      {
+        params: {
+          language: "pt-BR",
+        },
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.cast;
+  } catch (error) {
+    console.error(`Error fetching movies for actor ${actorId}:`, error);
+  }
+};
+
 export {
   fetchAxiosSearch,
   fetchRandomMovieTvDetails,
@@ -727,7 +768,9 @@ export {
   fetchNowPlayingMovies,
   fetchTopRatedMovies,
   fetchUpcomingMovies,
-  fetchSimilarTvShows,
-  fetchSeasonDetails,
+  fetchActorMovies,
+  fetchPopularActors,
   fetchSimilarMovies,
+  fetchSeasonDetails,
+  fetchSimilarTvShows,
 };

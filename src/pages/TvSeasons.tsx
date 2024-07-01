@@ -13,7 +13,6 @@ const TvSeasons: React.FC<Props> = ({ numSec, id }) => {
   const fetchSeason = async () => {
     if (numSec && id) {
       const list = await fetchSeasonDetails(id, numSec);
-      console.log(list.episodes);
       setListEpisodes(list.episodes);
     }
   };

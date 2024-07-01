@@ -3,6 +3,7 @@ import Footer from "./Footer";
 import Hero from "./Hero";
 import { fetchRandomMovieTvDetails } from "../apiService/apiService";
 import { detail } from "../types/Tmdb";
+import ActorCarousels from "./CelebritiesCarousel";
 
 const Celebrities = () => {
   const [randomTrend, setRandomTrend] = useState<detail | null>(null);
@@ -19,6 +20,7 @@ const Celebrities = () => {
   return (
     <div>
       <Hero detail={randomTrend} />
+      <ActorCarousels />
       <Footer />
     </div>
   );
