@@ -9,7 +9,7 @@ const Search: React.FC = () => {
   const category = searchParams.get("category") || "Tudo";
 
   return (
-    <div className="movie-search-page">
+    <div className="movie-search-page h-full bg-neutral-600">
       <Header />
       <MovieSearch query={query} category={category} />
     </div>
