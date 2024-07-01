@@ -6,9 +6,10 @@ interface Props {
   query: object[];
   title: string;
   page: string;
+  seasonNumber?: boolean;
 }
 
-const Carrossel = ({ query, title, page }: Props) => {
+const Carrossel = ({ query, title, page, seasonNumber }: Props) => {
   const navigate = useNavigate();
 
   const handleItemClick = (id: number) => {
@@ -43,7 +44,9 @@ const Carrossel = ({ query, title, page }: Props) => {
         {query.map((item: object) => (
           <SplideSlide
             key={item?.id}
-            onClick={() => handleItemClick(item.id)}
+            onClick={() =>
+              handleItemClick(seasonNumber ? item.season_number : item.id)
+            }
             className={"cursor-pointer"}
           >
             <img

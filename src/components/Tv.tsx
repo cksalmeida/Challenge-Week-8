@@ -8,11 +8,13 @@ import {
 import { detail } from "../types/Tmdb";
 import { useParams } from "react-router-dom";
 import TvCarousels from "./TvCarousels";
+import TvSeasons from "../pages/TvSeasons";
 
 const Tv = () => {
   const [randomTrendTv, setRandomTrendTv] = useState<detail | null>(null);
   const [tvClicked, setTvClicked] = useState<detail | null>(null);
   const { id } = useParams<{ id: string }>();
+  const { numSec } = useParams<{ numSec: string }>();
 
   useEffect(() => {
     const fetchRandomTrendTv = async () => {
@@ -30,12 +32,18 @@ const Tv = () => {
     } else {
       fetchRandomTrendTv();
     }
-  }, [id]);
+  }, [id, numSec]);
 
   return (
     <div>
       <Hero detail={tvClicked || randomTrendTv} id={id ? id : null} />
-      {id ? null : <TvCarousels />}
+      {numSec ? (
+        <TvSeasons numSec={numSec} id={id} />
+      ) : id ? (
+        <TvCarousels id={id} />
+      ) : (
+        <TvCarousels />
+      )}
       <Footer />
     </div>
   );
