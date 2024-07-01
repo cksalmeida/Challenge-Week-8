@@ -1,29 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import MovieSearch from "../components/MovieSearch";
+import { useSearchParams } from "react-router-dom";
+import Header from "../components/Header";
 
 const Search: React.FC = () => {
-  const [query, setQuery] = useState("");
-
-  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-  };
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("query") || "";
+  const category = searchParams.get("category") || "Tudo";
 
   return (
     <div className="movie-search-page">
-      <form onSubmit={handleSearch}>
-        <input
-          type="text"
-          value={query}
-          onChange={handleChange}
-          placeholder="Search for movies..."
-        />
-        <button type="submit">Search</button>
-      </form>
-      <MovieSearch query={query} />
+      <Header />
+      <MovieSearch query={query} category={category} />
     </div>
   );
 };

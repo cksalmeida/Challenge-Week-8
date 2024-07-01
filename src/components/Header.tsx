@@ -7,16 +7,38 @@ import searchIcon from "../assets/icons/search.svg";
 import plusIcon from "../assets/icons/plus.svg";
 import userIcon from "../assets/logged_user.svg";
 import closeIcon from "../assets/icons/close.svg";
-import { useState } from "react";
-import DropdownMenuUser from "./DropdownMenuUser";
 import "./header.css";
+import DropdownMenuUser from "./DropdownMenuUser";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [openDropdownMenu, setOpenDropdownMenu] = useState(false);
   const [showSearchBox, setShowSearchBox] = useState(false);
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("Tudo");
+  const navigate = useNavigate();
 
   const toggleSearchBox = () => {
     setShowSearchBox((prev) => !prev);
+  };
+
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (query) {
+      navigate(`/home/buscar?query=${query}&category=${category}`);
+      setShowSearchBox(false);
+    }
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
+
+  const handleCategoryChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setCategory(event.target.value);
   };
 
   return (
@@ -25,11 +47,16 @@ const Header = () => {
         <img src={compassLogo} alt="compassLogo" className="w-[200px]" />
         <div className="flex flex-row md:order-2 justify-center items-center font-workSans text-base text-white gap-4 w-full md:justify-end">
           {showSearchBox ? (
-            <div className="px-3 flex flex-col items-center md:flex-wrap md:flex-row gap-4 bg-neutral-700">
+            <form
+              onSubmit={handleSearch}
+              className="px-3 flex flex-col items-center md:flex-wrap md:flex-row gap-4 bg-neutral-700"
+            >
               <input
                 className="bg-neutral-700 font-lato md:w-[187px] pt-3 md:py-1 text-base"
                 type="text"
                 placeholder="Filme, série ou celebridade"
+                value={query}
+                onChange={handleChange}
               />
               <div className="flex flex-row gap-3">
                 <button className="p-3 border-solid">
@@ -37,6 +64,8 @@ const Header = () => {
                     className="bg-neutral-700 w-24 h-[43px]"
                     name="options"
                     id="options"
+                    value={category}
+                    onChange={handleCategoryChange}
                   >
                     <option value="Tudo">Tudo</option>
                     <option value="Filmes">Filmes</option>
@@ -45,14 +74,14 @@ const Header = () => {
                     <option value="Celebridades">Celebridades</option>
                   </select>
                 </button>
-                <button>
+                <button type="submit">
                   <img src={searchIcon} alt="searchIcon" />
                 </button>
-                <button onClick={toggleSearchBox}>
+                <button type="button" onClick={toggleSearchBox}>
                   <img src={closeIcon} alt="closeIcon" />
                 </button>
               </div>
-            </div>
+            </form>
           ) : (
             <div className="flex flex-row gap-2">
               <button
