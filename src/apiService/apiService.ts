@@ -593,30 +593,54 @@ const getWatchlistTv = async (sessionId: string) => {
   }
 };
 
-const fetchAxiosSearchMovies = {
-  method: "GET",
-  url: "https://api.themoviedb.org/3/search/movie",
-  params: {
-    query: "",
+const getAxiosSearchConfig = (category: string, query: string) => {
+  const baseParams = {
+    query,
     include_adult: "false",
     language: "pt-BR",
     page: "1",
-  },
-  headers: {
-    accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMGRjODU4NmFhZDU5M2ExYWJjYjA3ZmJiZjIyYmVhZiIsIm5iZiI6MTcxOTI1NjQyOS4wMTg5MzEsInN1YiI6IjY2NzljMmZhMjYyOTk0YzJlZTljODAwZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.jEL_TVMFQRJrxInCvmdZdZCZdTPHLzXyTvT697BYppg",
-  },
+  };
+
+  let url = "";
+  switch (category) {
+    case "Filmes":
+      url = "https://api.themoviedb.org/3/search/movie";
+      break;
+    case "Séries":
+      url = "https://api.themoviedb.org/3/search/tv";
+      break;
+    case "Coleções":
+      url = "https://api.themoviedb.org/3/search/collection";
+      break;
+    case "Celebridades":
+      url = "https://api.themoviedb.org/3/search/person";
+      break;
+    default:
+      url = "https://api.themoviedb.org/3/search/multi";
+      break;
+  }
+
+  return {
+    method: "GET",
+    url,
+    params: baseParams,
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
 };
 
-axios
-  .request(fetchAxiosSearchMovies)
-  .then(function (response) {
-    console.log(response.data);
-  })
-  .catch(function (error) {
-    console.error(error);
-  });
+const fetchAxiosSearch = async (category: string, query: string) => {
+  const config = getAxiosSearchConfig(category, query);
+  try {
+    const response = await axios.request(config);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data: ", error);
+    throw error;
+  }
+};
 
 const fetchSimilarTvShows = async (id: string) => {
   const options = {
@@ -678,7 +702,7 @@ const fetchSimilarMovies = async (movieId: string) => {
 };
 
 export {
-  fetchAxiosSearchMovies,
+  fetchAxiosSearch,
   fetchRandomMovieTvDetails,
   fetchSearchMovies,
   fetchSearchCollection,

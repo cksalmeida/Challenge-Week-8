@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { fetchAxiosSearchMovies } from "../apiService/apiService";
+import { fetchAxiosSearch } from "../apiService/apiService";
 import "./movieSearch.css";
 
 interface MovieSearchProps {
   query: string;
+  category: string;
 }
 
 interface Movie {
@@ -12,21 +12,16 @@ interface Movie {
   poster_path: string;
 }
 
-const MovieSearch: React.FC<MovieSearchProps> = ({ query }) => {
+const MovieSearch: React.FC<MovieSearchProps> = ({ query, category }) => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [searchText, setSearchText] = useState<string>("");
-  const [hasResults, setHasResults] = useState<boolean>(true); // Estado para verificar se há resultados
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.request({
-          ...fetchAxiosSearchMovies,
-          params: { ...fetchAxiosSearchMovies.params, query },
-        });
-        const results = response.data.results;
-        setMovies(results);
-        setHasResults(results.length > 0); // Atualiza o estado baseado nos resultados da busca
+        const data = await fetchAxiosSearch(category, query);
+        setMovies(data.results);
+        setSearchText(query);
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
@@ -35,22 +30,15 @@ const MovieSearch: React.FC<MovieSearchProps> = ({ query }) => {
     if (query) {
       fetchData();
     }
-  }, [query]);
+  }, [query, category]);
 
   return (
-    <div className="movies-search-results">
+    <div>
       {query && (
         <div className="search-info">
-          {hasResults ? (
-            <p className="search-info-text">
-              Resultados para sua busca: <strong>{query}</strong>
-            </p>
-          ) : (
-            <p className="search-info-text no-results">Sem resultados</p>
-          )}
+          Resultados para sua busca: <strong>{searchText}</strong>
         </div>
       )}
-
       <div className="movies-grid">
         {movies.map((movie) => (
           <div key={movie.id} className="movie-item">
@@ -61,6 +49,7 @@ const MovieSearch: React.FC<MovieSearchProps> = ({ query }) => {
           </div>
         ))}
       </div>
+      {movies.length === 0 && <div className="no-results">Sem resultados</div>}
     </div>
   );
 };
