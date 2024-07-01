@@ -60,6 +60,7 @@ const HeroInformation = ({ detail, id }: Props) => {
 
   const renderRuntimeOrSeasons = (detail: detail | null) => {
     if (!detail) return null;
+    // if (detail.season) return `${detail.vote_average.toFixed(2)} 👍`;
     if (detail.runtime) return convertMinutesToHours(detail.runtime);
     if (detail.number_of_seasons) {
       return detail.number_of_seasons > 1
@@ -91,7 +92,7 @@ const HeroInformation = ({ detail, id }: Props) => {
     <div className="flex flex-col items-start gap-8 z-20 w-full px-4 md:px-[80px] font-workSans text-white">
       <div className="text-neutral-100 flex flex-col gap-5">
         <h1 className="text-44px font-bold">
-          {detail ? (detail.title ? detail.title : detail.name) : null}
+          {detail ? (detail.name ? detail.name : detail.title) : null}
         </h1>
         <p className="text-base font-normal">
           {releaseYear} • {renderRuntimeOrSeasons(detail)}

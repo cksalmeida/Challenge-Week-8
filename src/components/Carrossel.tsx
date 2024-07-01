@@ -9,10 +9,17 @@ interface Props {
   seasonNumber?: boolean;
 }
 
+interface Item {
+  id?: string;
+  name?: string;
+  poster_path?: string;
+  season_number?: string;
+}
+
 const Carrossel = ({ query, title, page, seasonNumber }: Props) => {
   const navigate = useNavigate();
 
-  const handleItemClick = (id: number) => {
+  const handleItemClick = (id: string | undefined) => {
     navigate(`/home/${page}/${id}`);
   };
 
@@ -41,7 +48,7 @@ const Carrossel = ({ query, title, page, seasonNumber }: Props) => {
           },
         }}
       >
-        {query.map((item: object) => (
+        {query.map((item: Item) => (
           <SplideSlide
             key={item?.id}
             onClick={() =>

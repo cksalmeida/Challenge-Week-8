@@ -23,7 +23,7 @@ const TvSeasons: React.FC<Props> = ({ numSec, id }) => {
   }, []);
 
   return (
-    <div className="pb-14 pl-4 md:pl-20 flex flex-col gap-14">
+    <div className="pb-14 pl-4 md:pl-20 flex flex-col gap-14 overflow-hidden">
       <Episodes episodes={listEpisodes} />
     </div>
   );
