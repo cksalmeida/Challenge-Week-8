@@ -1,4 +1,6 @@
-# Compass Video
+# <img src="src/assets/logo/favicon.ico" alt="Logotype" style="margin-left: 20px; vertical-align: middle; width: 30px" /> Compass Video
+
+![Badge Status](http://img.shields.io/static/v1?label=STATUS&message=FINISH&color=GREEN&style=for-the-badge)
 
 This project is a video streaming application developed for Compass Uol Front-end internship program.
 
@@ -6,14 +8,25 @@ This project is a video streaming application developed for Compass Uol Front-en
 
 Compass Video allows users to browse through movies, TV shows and actors. It integrates with the TMDB API to fetch media content and uses React Router DOM for navigation. Tailwind CSS is used for styling, ensuring a responsive and visually appealing user interface.
 
-## Features
+## 🔨 Features
 
 - Browse popular movies and TV shows
 - View detailed information about each movie or TV show
 - Play trailers and video content
 - Responsive design for optimal viewing on various devices
 
-## Getting Started
+## ✔️ Technologies Used
+
+- React.js
+- TypeScript
+- Tailwind CSS
+- Vite
+- Axios
+- React Router DOM
+- TMDB API
+- Splide
+
+## 🛠️ Getting Started
 
 To get a local copy of the project up and running, follow these steps:
 
@@ -41,20 +54,7 @@ To get a local copy of the project up and running, follow these steps:
 
 5. Open your browser and visit `http://localhost:5173` to view the application.
 
-## Technologies Used
+# Authors 👨‍💻👩‍💻
 
-- React.js
-- TypeScript
-- Tailwind CSS
-- Vite
-- Axios
-- React Router DOM
-- TMDB API
-- Splide
-
-## Authors
-
-- [Davi Mathais](https://github.com/cksalmeida)
-- [Lucas Lapazini](https://github.com/lucaslapazini95)
-- [Mariana R. Kemmerich](https://github.com/marianakemmerich)
-- [Vinícius Andrade Gonzato](https://github.com/Vini0100)
+| [<img loading="lazy" src="https://avatars.githubusercontent.com/u/126361791?v=4" width=115><br><sub>Vinícius Andrade Gonzato</sub>](https://github.com/Vini0100) | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/123078429?v=4" width=115><br><sub>Mariana R. Kemmerich</sub>](https://github.com/marianakemmerich) | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/100139909?v=4" width=115><br><sub>Davi Mathais</sub>](https://github.com/cksalmeida) | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/114882852?v=4" width=115><br><sub>Lucas Lapazini</sub>](https://github.com/lucaslapazini95) |
+| :--------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------: |
