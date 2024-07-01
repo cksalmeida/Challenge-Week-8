@@ -7,7 +7,7 @@ This project is a video streaming application developed for Compass Uol Front-en
 ## Overview
 
 Compass Video allows users to browse through movies, TV shows and actors. It integrates with the TMDB API to fetch media content and uses React Router DOM for navigation. Tailwind CSS is used for styling, ensuring a responsive and visually appealing user interface.
-![]https://github.com/lucaslapazini95/proj2-sem8-pb/blob/main/demo-gif.gif
+![](https://github.com/lucaslapazini95/proj2-sem8-pb/blob/main/demo-gif.gif)
 
 ## 🔨 Features
 
