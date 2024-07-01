@@ -37,7 +37,7 @@ const MovieSearch: React.FC<MovieSearchProps> = ({ query, category }) => {
   }, [query, category]);
 
   return (
-    <div className="container mx-auto h-[150vh]">
+    <div className="container mx-auto h-auto mb-4">
       {query && (
         <div className="search-info text-white">
           <span className="opacity-80">Resultados para sua busca: </span>
