@@ -1,21 +1,23 @@
 import Carrossel from "../components/Carrossel";
 import {
-fetchNowPlayingMovies,
-fetchPopularMovies,
-fetchTopRatedMovies,
-fetchUpcomingMovies,
+  fetchNowPlayingMovies,
+  fetchPopularMovies,
+  fetchTopRatedMovies,
+  fetchUpcomingMovies,
 } from "../apiService/apiService";
 import { useEffect, useState } from "react";
 
 const MovieCarousels = () => {
-    const [listNowPlaying, setListNowPlaying] = useState([]);
-    const [listPopularMovies, setListPopularMovies] = useState([]);
-    const [listTopRatedMovies, setListTopRatedMovies] = useState([]);
-    const [listUpcomingMovies, setListUpcomingMovies] = useState([]);
+  const [listNowPlaying, setListNowPlaying] = useState([]);
+  const [listPopularMovies, setListPopularMovies] = useState([]);
+  const [listTopRatedMovies, setListTopRatedMovies] = useState([]);
+  const [listUpcomingMovies, setListUpcomingMovies] = useState([]);
 
   const fetchNowPlayingItems = async () => {
     let list = await fetchNowPlayingMovies();
-    list = list.filter((item) => item.poster_path !== null);
+    list = list.filter(
+      (item: { poster_path: string | null }) => item.poster_path !== null
+    );
     setListNowPlaying(list);
   };
 
@@ -41,30 +43,21 @@ const MovieCarousels = () => {
     fetchUpcomingItems();
   }, []);
 
-
   return (
     <div className="pb-14 pl-4 md:pl-20 flex flex-col gap-14">
-    <Carrossel 
-      query={listNowPlaying} 
-      page="filmes" 
-      title="Lançamentos" 
+      <Carrossel query={listNowPlaying} page="filmes" title="Lançamentos" />
+      <Carrossel
+        query={listPopularMovies}
+        page="filmes"
+        title="Filmes Populares"
       />
-    <Carrossel 
-      query={listPopularMovies} 
-      page="filmes" 
-      title="Filmes Populares" 
+      <Carrossel
+        query={listTopRatedMovies}
+        page="filmes"
+        title="Mais Bem Avaliados"
       />
-    <Carrossel 
-      query={listTopRatedMovies} 
-      page="filmes" 
-      title="Mais Bem Avaliados" 
-      />
-    <Carrossel 
-      query={listUpcomingMovies} 
-      page="filmes" 
-      title="Em Breve"
-      />
-  </div>
+      <Carrossel query={listUpcomingMovies} page="filmes" title="Em Breve" />
+    </div>
   );
 };
 

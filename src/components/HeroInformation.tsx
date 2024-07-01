@@ -85,7 +85,7 @@ const HeroInformation = ({ detail, id }: Props) => {
 
   const toPath = isHomePage()
     ? `${detail?.id}`
-    : `${verifyMoviesOrTvs()}/${detail?.id}`;
+    : `/home/${verifyMoviesOrTvs()}/${detail?.id}`;
 
   return (
     <div className="flex flex-col items-start gap-8 z-20 w-full px-4 md:px-[80px] font-workSans text-white">
@@ -102,7 +102,7 @@ const HeroInformation = ({ detail, id }: Props) => {
         {detail ? detail.overview : null}
       </p>
       <div className="flex flex-col md:flex-row gap-6 items-start">
-        <Link to="player">
+        <Link to="/home/player">
           <ButtonDefault
             img={playVector}
             alt="Play"
@@ -123,9 +123,11 @@ const HeroInformation = ({ detail, id }: Props) => {
           </Link>
         ) : null}
         {id ? (
-          <ButtonDefault className="bg-none text-white border border-white hover:bg-neutral-200 hover:text-neutral-600 hover:border-none">
-            TRAILER
-          </ButtonDefault>
+          <Link to={"/home/player"}>
+            <ButtonDefault className="bg-none text-white border border-white hover:bg-neutral-200 hover:text-neutral-600 hover:border-none">
+              TRAILER
+            </ButtonDefault>
+          </Link>
         ) : null}
         <div className="flex gap-6">
           <Tooltip text='Adicionar à "Assistir mais tarde"'>

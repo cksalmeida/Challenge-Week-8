@@ -60,7 +60,7 @@ const Home = () => {
             </>
           }
         />
-        <Route path="series/:id?" element={<Tv />} />
+        <Route path="series/:id?/:numSec?" element={<Tv />} />
         <Route path="filmes/:id?" element={<Movie />} />
         <Route path="celebridades/:id?" element={<Celebrities />} />
         <Route path="colecoes/:id" element={<Collection />} />
