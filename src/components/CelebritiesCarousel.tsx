@@ -1,6 +1,7 @@
-import Carrossel from "../components/Carrossel";
 import { useEffect, useState } from "react";
+import Carrossel from "../components/Carrossel";
 import { fetchPopularActors, fetchActorMovies } from "../apiService/apiService";
+import ActorList from "./CelebritiesCard";
 
 const ActorCarousels = () => {
   const [selectedActors, setSelectedActors] = useState([]);
@@ -25,6 +26,7 @@ const ActorCarousels = () => {
 
   return (
     <div className="pb-14 pl-4 md:pl-20 flex flex-col gap-14">
+      <ActorList actors={selectedActors} />
       {selectedActors.map((actor) => (
         <div key={actor.id}>
           <Carrossel 
@@ -33,7 +35,7 @@ const ActorCarousels = () => {
             title={`Filmes de ${actor.name}`} />
         </div>
       ))}
-    </div>
+      </div>
   );
 };
 
