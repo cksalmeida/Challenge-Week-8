@@ -187,3 +187,9 @@ interface GuestStar {
   popularity: number;
   profile_path: string;
 }
+
+export interface Actor {
+  id: string;
+  name: string;
+  profile_path: string | null;
+}

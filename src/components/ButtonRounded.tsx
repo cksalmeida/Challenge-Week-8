@@ -33,7 +33,6 @@ const ButtonRounded = ({
   const addWatchlist = async () => {
     if (!detail?.id || !sessionId) return null;
     const mediaType = detail?.runtime ? "movie" : "tv";
-    console.log("first");
     await addToWatchlist(sessionId, mediaType, detail.id);
   };
   const rmWatchlist = async () => {

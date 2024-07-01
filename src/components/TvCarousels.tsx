@@ -60,7 +60,6 @@ const TvCarousels = ({ id }: Props) => {
   const fetchSimilarTvShowsCallback = useCallback(async () => {
     if (id) {
       let list = await fetchSimilarTvShows(id);
-      console.log(list);
       list = list.filter(
         (item: { poster_path: string | null }) => item.poster_path !== null
       );
