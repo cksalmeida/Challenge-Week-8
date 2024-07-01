@@ -36,7 +36,7 @@ const HomeCarousels = () => {
   }, [fetchColectionsItems, fetchTvItems, fetchMoviesItems]);
 
   return (
-    <div className="pb-14 pl-4 md:pl-20 flex flex-col gap-14">
+    <div className="pb-14 pl-4 md:pl-20 flex flex-col gap-14 overflow-hidden">
       <Carrossel
         query={listColections}
         page="colecoes"

@@ -1,32 +1,31 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { fetchAxiosSearchMovies } from "../apiService/apiService";
+import { fetchAxiosSearch } from "../apiService/apiService";
 import "./movieSearch.css";
 
 interface MovieSearchProps {
   query: string;
+  category: string;
 }
 
 interface Movie {
   id: number;
   poster_path: string;
+  name: string;
 }
 
-const MovieSearch: React.FC<MovieSearchProps> = ({ query }) => {
+const MovieSearch: React.FC<MovieSearchProps> = ({ query, category }) => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [searchText, setSearchText] = useState<string>("");
-  const [hasResults, setHasResults] = useState<boolean>(true); // Estado para verificar se há resultados
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.request({
-          ...fetchAxiosSearchMovies,
-          params: { ...fetchAxiosSearchMovies.params, query },
-        });
-        const results = response.data.results;
-        setMovies(results);
-        setHasResults(results.length > 0); // Atualiza o estado baseado nos resultados da busca
+        let data = await fetchAxiosSearch(category, query);
+        data = data.results.filter(
+          (item: { poster_path: string | null }) => item.poster_path !== null
+        );
+        setMovies(data);
+        setSearchText(query);
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
@@ -35,32 +34,29 @@ const MovieSearch: React.FC<MovieSearchProps> = ({ query }) => {
     if (query) {
       fetchData();
     }
-  }, [query]);
+  }, [query, category]);
 
   return (
-    <div className="movies-search-results">
+    <div className="container mx-auto h-[150vh]">
       {query && (
-        <div className="search-info">
-          {hasResults ? (
-            <p className="search-info-text">
-              Resultados para sua busca: <strong>{query}</strong>
-            </p>
-          ) : (
-            <p className="search-info-text no-results">Sem resultados</p>
-          )}
+        <div className="search-info text-white">
+          <span className="opacity-80">Resultados para sua busca: </span>
+          <span className="font-bold">{searchText}</span>
         </div>
       )}
-
       <div className="movies-grid">
         {movies.map((movie) => (
           <div key={movie.id} className="movie-item">
             <img
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt=""
+              alt={movie.name}
             />
           </div>
         ))}
       </div>
+      {movies.length === 0 && (
+        <div className="no-results text-white opacity-80">Sem resultados</div>
+      )}
     </div>
   );
 };

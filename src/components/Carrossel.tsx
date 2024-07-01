@@ -6,12 +6,20 @@ interface Props {
   query: object[];
   title: string;
   page: string;
+  seasonNumber?: boolean;
 }
 
-const Carrossel = ({ query, title, page }: Props) => {
+interface Item {
+  id?: string;
+  name?: string;
+  poster_path?: string;
+  season_number?: string;
+}
+
+const Carrossel = ({ query, title, page, seasonNumber }: Props) => {
   const navigate = useNavigate();
 
-  const handleItemClick = (id: number) => {
+  const handleItemClick = (id: string | undefined) => {
     navigate(`/home/${page}/${id}`);
   };
 
@@ -40,10 +48,12 @@ const Carrossel = ({ query, title, page }: Props) => {
           },
         }}
       >
-        {query.map((item: object) => (
+        {query.map((item: Item) => (
           <SplideSlide
             key={item?.id}
-            onClick={() => handleItemClick(item.id)}
+            onClick={() =>
+              handleItemClick(seasonNumber ? item.season_number : item.id)
+            }
             className={"cursor-pointer"}
           >
             <img

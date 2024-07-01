@@ -248,16 +248,19 @@ const fetchAiringTodayTVShows = async () => {
 
 const fetchOnTheAirTVShows = async () => {
   try {
-    const response = await axios.get("https://api.themoviedb.org/3/tv/on_the_air", {
-      params: {
-        language: "pt-BR",
-        page: 1,
-      },
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/tv/on_the_air",
+      {
+        params: {
+          language: "pt-BR",
+          page: 1,
+        },
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data.results;
   } catch (error) {
     console.error("Error fetching On The Air TV shows:", error);
@@ -266,16 +269,19 @@ const fetchOnTheAirTVShows = async () => {
 
 const fetchTopRatedTVShows = async () => {
   try {
-    const response = await axios.get("https://api.themoviedb.org/3/tv/top_rated", {
-      params: {
-        language: "pt-BR",
-        page: 1,
-      },
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/tv/top_rated",
+      {
+        params: {
+          language: "pt-BR",
+          page: 1,
+        },
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data.results;
   } catch (error) {
     console.error("Error fetching Top Rated TV shows:", error);
@@ -284,16 +290,19 @@ const fetchTopRatedTVShows = async () => {
 
 const fetchNowPlayingMovies = async () => {
   try {
-    const response = await axios.get("https://api.themoviedb.org/3/movie/now_playing", {
-      params: {
-        language: "pt-BR",
-        page: 1,
-      },
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/movie/now_playing",
+      {
+        params: {
+          language: "pt-BR",
+          page: 1,
+        },
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data.results;
   } catch (error) {
     console.error("Error fetching Now Playing Movies:", error);
@@ -302,16 +311,19 @@ const fetchNowPlayingMovies = async () => {
 
 const fetchTopRatedMovies = async () => {
   try {
-    const response = await axios.get("https://api.themoviedb.org/3/movie/top_rated", {
-      params: {
-        language: "pt-BR",
-        page: 1,
-      },
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/movie/top_rated",
+      {
+        params: {
+          language: "pt-BR",
+          page: 1,
+        },
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data.results;
   } catch (error) {
     console.error("Error fetching Top Rated Movies:", error);
@@ -320,16 +332,19 @@ const fetchTopRatedMovies = async () => {
 
 const fetchUpcomingMovies = async () => {
   try {
-    const response = await axios.get("https://api.themoviedb.org/3/movie/upcoming", {
-      params: {
-        language: "pt-BR",
-        page: 1,
-      },
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(
+      "https://api.themoviedb.org/3/movie/upcoming",
+      {
+        params: {
+          language: "pt-BR",
+          page: 1,
+        },
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data.results;
   } catch (error) {
     console.error("Error fetching Upcoming Movies:", error);
@@ -355,7 +370,6 @@ const getSessionWithToken = async (requestToken: string) => {
     return response.data;
   } catch (error) {
     console.error("Error fetching session with token:", requestToken, error);
-    throw error;
   }
 };
 
@@ -480,7 +494,6 @@ const getGuestSession = async () => {
     return response.data.guest_session_id;
   } catch (error) {
     console.error("Error fetching guest session:", error);
-    throw error;
   }
 };
 
@@ -529,7 +542,6 @@ const getFavoriteTVShows = async (sessionId: string) => {
     return response.data.results;
   } catch (error) {
     console.error("Error fetching favorite TV shows:", error);
-    throw error;
   }
 };
 
@@ -554,7 +566,6 @@ const getWatchlistMovies = async (sessionId: string) => {
     return response.data.results;
   } catch (error) {
     console.error("Error fetching watchlist movies:", error);
-    throw error;
   }
 };
 
@@ -579,34 +590,116 @@ const getWatchlistTv = async (sessionId: string) => {
     return response.data.results;
   } catch (error) {
     console.error("Error fetching watchlist TV shows:", error);
+  }
+};
+
+const getAxiosSearchConfig = (category: string, query: string) => {
+  const baseParams = {
+    query,
+    include_adult: "false",
+    language: "pt-BR",
+    page: "1",
+  };
+
+  let url = "";
+  switch (category) {
+    case "Filmes":
+      url = "https://api.themoviedb.org/3/search/movie";
+      break;
+    case "Séries":
+      url = "https://api.themoviedb.org/3/search/tv";
+      break;
+    case "Coleções":
+      url = "https://api.themoviedb.org/3/search/collection";
+      break;
+    case "Celebridades":
+      url = "https://api.themoviedb.org/3/search/person";
+      break;
+    default:
+      url = "https://api.themoviedb.org/3/search/multi";
+      break;
+  }
+
+  return {
+    method: "GET",
+    url,
+    params: baseParams,
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+};
+
+const fetchAxiosSearch = async (category: string, query: string) => {
+  const config = getAxiosSearchConfig(category, query);
+  try {
+    const response = await axios.request(config);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data: ", error);
     throw error;
   }
 };
 
-const fetchAxiosSearchMovies = {
-  method: "GET",
-  url: "https://api.themoviedb.org/3/search/movie",
-  params: {
-    query: "",
-    include_adult: "false",
-    language: "pt-BR",
-    page: "1",
-  },
-  headers: {
-    accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMGRjODU4NmFhZDU5M2ExYWJjYjA3ZmJiZjIyYmVhZiIsIm5iZiI6MTcxOTI1NjQyOS4wMTg5MzEsInN1YiI6IjY2NzljMmZhMjYyOTk0YzJlZTljODAwZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.jEL_TVMFQRJrxInCvmdZdZCZdTPHLzXyTvT697BYppg",
-  },
+const fetchSimilarTvShows = async (id: string) => {
+  const options = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/tv/${id}/similar`,
+    params: { language: "pt-BR", page: 1 },
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  try {
+    const response = await axios.request(options);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching Similar TV shows:", error);
+  }
 };
 
-axios
-  .request(fetchAxiosSearchMovies)
-  .then(function (response) {
-    console.log(response.data);
-  })
-  .catch(function (error) {
-    console.error(error);
-  });
+const fetchSeasonDetails = async (series: string, season: string) => {
+  const options = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/tv/${series}/season/${season}`,
+    params: { language: "pt-BR" },
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(options);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching season details:", error);
+  }
+};
+
+const fetchSimilarMovies = async (movieId: string) => {
+  const options = {
+    method: "GET",
+    url: `https://api.themoviedb.org/3/movie/${movieId}/similar`,
+    params: {
+      language: "pt-BR",
+      page: "1",
+    },
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const response = await axios.request(options);
+    return response.data.results;
+  } catch (error) {
+    console.error("Erro ao buscar filmes similares:", error);
+  }
+};
 
 const fetchPopularActors = async () => {
     try {
@@ -629,7 +722,7 @@ const fetchPopularActors = async () => {
     }
   };
 
-const fetchActorMovies = async (actorId) => {
+const fetchActorMovies = async (actorId: string) => {
     try {
       const response = await axios.get(
         `https://api.themoviedb.org/3/person/${actorId}/movie_credits`,
@@ -649,8 +742,12 @@ const fetchActorMovies = async (actorId) => {
     }
   };
 
+
+
+
+
 export {
-  fetchAxiosSearchMovies,
+  fetchAxiosSearch,
   fetchRandomMovieTvDetails,
   fetchSearchMovies,
   fetchSearchCollection,
@@ -675,6 +772,5 @@ export {
   fetchNowPlayingMovies,
   fetchTopRatedMovies,
   fetchUpcomingMovies,
-  fetchPopularActors,
   fetchActorMovies
 };
