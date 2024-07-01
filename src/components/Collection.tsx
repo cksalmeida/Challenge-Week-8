@@ -4,6 +4,7 @@ import Hero from "./Hero";
 import { useParams } from "react-router-dom";
 import { fetchColletionDetailsById } from "../apiService/apiService";
 import { detail } from "../types/Tmdb";
+import CollectionCarousel from "./CollectionCarousel";
 
 const Collection = () => {
   const [collectionClicked, setCollectionClicked] = useState<detail | null>(
@@ -24,6 +25,7 @@ const Collection = () => {
   return (
     <div>
       <Hero detail={collectionClicked} id={id ? id : null} />
+      <CollectionCarousel collectionId={id}/>
       <Footer />
     </div>
   );

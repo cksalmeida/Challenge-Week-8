@@ -1,39 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer utilities {
-  .bg-botton-gradient {
-    background: linear-gradient(
-      to bottom,
-      rgba(26, 29, 41, 0.4) 49.29%,
-      rgba(26, 29, 41, 0.8) 60%,
-      #1a1d29 97.36%
-    );
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 10;
-  }
-}
-
-@layer utilities {
-  .bg-top-gradient {
-    background: linear-gradient(
-      to bottom,
-      rgba(26, 29, 41, 0.4) 0%,
-      rgba(26, 29, 41, 0.3) 25%,
-      rgba(26, 29, 41, 0.18) 50%,
-      rgba(26, 29, 41, 0.05) 75%,
-      rgba(26, 29, 41, 0) 100%
-    );
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 100px;
-    z-index: 10;
-  }
-}

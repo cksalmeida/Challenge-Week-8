@@ -7,14 +7,23 @@ import searchIcon from "../assets/icons/search.svg";
 import plusIcon from "../assets/icons/plus.svg";
 import userIcon from "../assets/logged_user.svg";
 import closeIcon from "../assets/icons/close.svg";
-import "./header.css";
+import { useEffect, useState } from "react";
 import DropdownMenuUser from "./DropdownMenuUser";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const Header = () => {
   const [openDropdownMenu, setOpenDropdownMenu] = useState(false);
   const [showSearchBox, setShowSearchBox] = useState(false);
+  const [homePage, setHomePage] = useState(false);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/home") {
+      setHomePage(true);
+    }
+  }, [location.pathname]);
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("Tudo");
   const navigate = useNavigate();
@@ -42,7 +51,7 @@ const Header = () => {
   };
 
   return (
-    <header className="relative w-full z-[1000] header">
+    <header className="relative w-full z-[20] header">
       <div className="flex flex-col md:flex-row gap-4 py-4 px-8 items-center md:justify-between">
         <img src={compassLogo} alt="compassLogo" className="w-[200px]" />
         <div className="flex flex-row md:order-2 justify-center items-center font-workSans text-base text-white gap-4 w-full md:justify-end">
@@ -61,7 +70,7 @@ const Header = () => {
               <div className="flex flex-row gap-3">
                 <button className="p-3 border-solid">
                   <select
-                    className="bg-neutral-700 w-24 h-[43px]"
+                    className="bg-neutral-700 w-24 h-[43px"
                     name="options"
                     id="options"
                     value={category}
@@ -91,13 +100,17 @@ const Header = () => {
                 <img src={searchIcon} alt="searchIcon" />
                 <p>Buscar</p>
               </button>
-              <a
-                href="#"
-                className="py-2 px-4 flex flex-row justify-center items-center gap-2"
+              <NavLink
+                to="/home/conta"
+                className={({ isActive }) =>
+                  isActive
+                    ? "py-2 px-4 flex flex-row justify-center items-center gap-2 text-secondary"
+                    : "py-2 px-4 flex flex-row justify-center items-center gap-2"
+                }
               >
                 <img src={plusIcon} alt="plusIcon" />
                 <p>Minha Lista</p>
-              </a>
+              </NavLink>
             </div>
           )}
 
@@ -118,28 +131,48 @@ const Header = () => {
         <div className="w-full">
           <nav className="font-workSans text-base text-white md:order-1 flex flex-row flex-wrap justify-center md:justify-start">
             <div className="py-2 px-4">
-              <a href="#" className="flex gap-2">
+              <NavLink
+                to="/home"
+                className={
+                  homePage ? "flex gap-2 text-secondary" : "flex gap-2"
+                }
+              >
                 <img src={homeIcon} alt="homeIcon" />
                 <p>Início</p>
-              </a>
+              </NavLink>
             </div>
             <div className="py-2 px-4">
-              <a href="#" className="flex gap-2">
+              <NavLink
+                to="/home/series"
+                className={({ isActive }) =>
+                  isActive ? "flex gap-2 text-secondary" : "flex gap-2"
+                }
+              >
                 <img src={tvIcon} alt="tvIcon" />
                 <p>Séries</p>
-              </a>
+              </NavLink>
             </div>
             <div className="py-2 px-4">
-              <a href="#" className="flex gap-2">
+              <NavLink
+                to="/home/filmes"
+                className={({ isActive }) =>
+                  isActive ? "flex gap-2 text-secondary" : "flex gap-2"
+                }
+              >
                 <img src={movieIcon} alt="movieIcon" />
                 <p>Filmes</p>
-              </a>
+              </NavLink>
             </div>
             <div className="py-2 px-4">
-              <a href="#" className="flex gap-2">
+              <NavLink
+                to="/home/celebridades"
+                className={({ isActive }) =>
+                  isActive ? "flex gap-2 text-secondary" : "flex gap-2"
+                }
+              >
                 <img src={starIcon} alt="starIcon" />
                 <p>Celebridades</p>
-              </a>
+              </NavLink>
             </div>
           </nav>
         </div>
